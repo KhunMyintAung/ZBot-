@@ -1,0 +1,1106 @@
+<!doctype html>
+<html lang="my" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#181a20">
+<title>zBOT Trader</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%22200%20160%20624%20690%22%3E%3Crect%20x%3D%22200%22%20y%3D%22160%22%20width%3D%22624%22%20height%3D%22690%22%20rx%3D%22120%22%20fill%3D%22%230b0e11%22%2F%3E%20%3Cg%20transform%3D%22translate(0%200)%20scale(1)%22%3E%20%3Cline%20x1%3D%22512%22%20y1%3D%22300%22%20x2%3D%22512%22%20y2%3D%22222%22%20stroke%3D%22%23fcd535%22%20stroke-width%3D%2230%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Ccircle%20cx%3D%22512%22%20cy%3D%22200%22%20r%3D%2234%22%20fill%3D%22%23fcd535%22%2F%3E%20%3Crect%20x%3D%22226%22%20y%3D%22438%22%20width%3D%2234%22%20height%3D%22150%22%20rx%3D%2217%22%20fill%3D%22%23fcd535%22%2F%3E%20%3Crect%20x%3D%22764%22%20y%3D%22438%22%20width%3D%2234%22%20height%3D%22150%22%20rx%3D%2217%22%20fill%3D%22%23fcd535%22%2F%3E%20%3Crect%20x%3D%22270%22%20y%3D%22300%22%20width%3D%22484%22%20height%3D%22430%22%20rx%3D%22110%22%20fill%3D%22%23181a20%22%20stroke%3D%22%23fcd535%22%20stroke-width%3D%2230%22%2F%3E%20%3Cg%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20fill%3D%22none%22%3E%20%3Cpolyline%20points%3D%22356%2C410%20640%2C410%20366%2C624%20532%2C624%22%20stroke%3D%22%23fcd535%22%20stroke-width%3D%2258%22%2F%3E%20%3Cline%20x1%3D%22532%22%20y1%3D%22624%22%20x2%3D%22636%22%20y2%3D%22520%22%20stroke%3D%22%230ecb81%22%20stroke-width%3D%2252%22%2F%3E%20%3Cpolygon%20points%3D%22690%2C466%20676%2C580%20576%2C480%22%20fill%3D%22%230ecb81%22%20stroke%3D%22%230ecb81%22%20stroke-width%3D%2218%22%2F%3E%20%3C%2Fg%3E%20%3Crect%20x%3D%22352%22%20y%3D%22772%22%20width%3D%2222%22%20height%3D%2258%22%20rx%3D%226%22%20fill%3D%22%23f6465d%22%2F%3E%20%3Crect%20x%3D%22402%22%20y%3D%22760%22%20width%3D%2222%22%20height%3D%2270%22%20rx%3D%226%22%20fill%3D%22%230ecb81%22%2F%3E%20%3Crect%20x%3D%22452%22%20y%3D%22782%22%20width%3D%2222%22%20height%3D%2248%22%20rx%3D%226%22%20fill%3D%22%23f6465d%22%2F%3E%20%3Crect%20x%3D%22502%22%20y%3D%22746%22%20width%3D%2222%22%20height%3D%2284%22%20rx%3D%226%22%20fill%3D%22%230ecb81%22%2F%3E%20%3Crect%20x%3D%22552%22%20y%3D%22734%22%20width%3D%2222%22%20height%3D%2296%22%20rx%3D%226%22%20fill%3D%22%230ecb81%22%2F%3E%20%3Crect%20x%3D%22602%22%20y%3D%22756%22%20width%3D%2222%22%20height%3D%2274%22%20rx%3D%226%22%20fill%3D%22%23f6465d%22%2F%3E%20%3Crect%20x%3D%22652%22%20y%3D%22720%22%20width%3D%2222%22%20height%3D%22110%22%20rx%3D%226%22%20fill%3D%22%230ecb81%22%2F%3E%20%3C%2Fg%3E%3C%2Fsvg%3E">
+<script>try { const t = localStorage.getItem('zbot-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}</script>
+<style>
+:root {
+  color-scheme: dark;
+  --page: #0b0e11; --surface: #181a20; --surface-2: #1e2329;
+  --text: #eaecef; --text-2: #b7bdc6; --muted: #848e9c;
+  --grid: #262b33; --axis: #474d57; --border: #2b3139;
+  --accent: #fcd535; --accent-ink: #181a20;
+  --series-1: #3f82f5; --ema1: #b88600; --ema2: #d6338f; --ema3: #3f82f5;
+  --up: #0ecb81; --dn: #f6465d;
+  --neg: #f6465d; --good: #0ecb81; --good-text: #0ecb81; --warning: #f0b90b; --critical: #f6465d;
+  --wash: rgba(255,255,255,0.06);
+  --r: 14px; --gap: 16px;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --page: #f5f5f5; --surface: #ffffff; --surface-2: #f5f6f7;
+  --text: #1e2329; --text-2: #474d57; --muted: #707a8a;
+  --grid: #eaecef; --axis: #b7bdc6; --border: #e6e8ea;
+  --accent-ink: #1e2329;
+  --series-1: #2a6fdb; --ema3: #2a6fdb;
+  --good-text: #078a5a; --warning: #c99400; --critical: #cf304a;
+  --wash: rgba(11,14,17,0.05);
+}
+
+/* ---- base ---- */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--page); color: var(--text);
+  font: 14px/1.5 system-ui, -apple-system, "Segoe UI", "Myanmar Text", "Noto Sans Myanmar", sans-serif;
+  font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.up { color: var(--good-text); }
+.down { color: var(--critical); }
+.hint { color: var(--muted); font-size: 12.5px; }
+
+/* ---- top bar ---- */
+.bar { position: sticky; top: 0; z-index: 30; background: var(--surface); border-bottom: 1px solid var(--border); }
+.bar-in { max-width: 1200px; margin: 0 auto; padding: 0 var(--gap); height: 56px; display: flex; align-items: center; gap: 12px; }
+.brand { display: inline-flex; align-items: center; gap: 9px; font-size: 17px; font-weight: 700; white-space: nowrap; }
+.brand .logo { width: 30px; height: 33px; flex: none; }
+.nav { display: flex; gap: 2px; margin-left: 12px; overflow-x: auto; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav a { flex: none; text-decoration: none; color: var(--text-2); font-size: 13.5px; font-weight: 600; padding: 7px 11px; border-radius: 8px; }
+.nav a:hover { color: var(--text); background: var(--wash); }
+.nav a.on { color: var(--accent); }
+:root[data-theme="light"] .nav a.on { color: var(--text); background: var(--wash); }
+.spacer { flex: 1; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: var(--surface-2);
+  border: 1px solid var(--border); font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+.dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.mode-paper { color: var(--text-2); }
+.mode-live { background: var(--critical); color: #fff; border-color: transparent; }
+
+/* ---- layout ---- */
+.wrap { max-width: 1200px; margin: 0 auto; padding: var(--gap) var(--gap) 56px; display: grid; gap: var(--gap); }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 20px; min-width: 0; }
+.card > .head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.card h2 { font-size: 16px; font-weight: 700; }
+.card h2 + .hint { margin-top: 2px; }
+.hero { display: grid; grid-template-columns: 1.25fr 1fr; gap: var(--gap); }
+.row2 { display: grid; grid-template-columns: 2fr 1fr; gap: var(--gap); }
+section[id], div[id].row2 { scroll-margin-top: 72px; }
+.err { display: none; background: var(--surface); border: 1px solid var(--critical); color: var(--critical); border-radius: 10px; padding: 10px 14px; }
+
+/* ---- balance ---- */
+.balance .label { display: flex; justify-content: space-between; color: var(--text-2); font-size: 13px; }
+.balance .big { font-size: 38px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-top: 4px; }
+.balance .big small { font-size: 15px; font-weight: 600; color: var(--muted); margin-left: 7px; letter-spacing: 0; }
+.balance .sub { color: var(--text-2); font-size: 13px; margin-top: 4px; }
+.chg { font-weight: 650; margin-right: 4px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 18px; border-top: 1px solid var(--border); padding-top: 14px; }
+.tile { padding: 0 12px; border-left: 1px solid var(--border); min-width: 0; }
+.tile:first-child { padding-left: 0; border-left: 0; }
+.tile .k { color: var(--muted); font-size: 12px; }
+.tile .v { font-size: 18px; font-weight: 700; margin-top: 2px; white-space: nowrap; }
+.tile .s { color: var(--muted); font-size: 12px; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---- bot control ---- */
+.control { display: flex; flex-direction: column; gap: 12px; }
+.plain { display: flex; gap: 10px; align-items: flex-start; background: var(--surface-2); border-radius: 10px; padding: 11px 13px;
+  font-size: 13.5px; line-height: 1.65; color: var(--text-2); }
+.plain b { color: var(--text); }
+.plain .ic { font-size: 20px; line-height: 1.3; }
+.btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.btn { font: inherit; font-size: 13.5px; font-weight: 600; padding: 10px 14px; border-radius: 10px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text); transition: filter .12s, background .12s; }
+.btn:hover:not(:disabled) { background: var(--wash); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn.primary { background: var(--accent); border-color: transparent; color: var(--accent-ink); font-weight: 700; }
+.btn.primary:hover:not(:disabled) { background: var(--accent); filter: brightness(1.07); }
+.btn.danger { color: var(--critical); border-color: color-mix(in srgb, var(--critical) 40%, transparent); }
+.btn.small { padding: 5px 11px; font-size: 12.5px; border-radius: 8px; }
+.btn.icon { padding: 6px 9px; font-size: 14px; line-height: 1; }
+.toast { font-size: 13px; color: var(--text-2); }
+.toast:empty { display: none; }
+.toast.bad { color: var(--critical); }
+.toast.good { color: var(--good-text); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.chip { font-size: 12px; color: var(--text-2); background: var(--surface-2); border-radius: 6px; padding: 3px 8px; }
+
+/* ---- segmented buttons ---- */
+.seg { display: inline-flex; background: var(--surface-2); border-radius: 10px; padding: 3px; gap: 2px; }
+.seg button { border: 0; background: transparent; color: var(--text-2); padding: 6px 14px; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; border-radius: 8px; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--accent); box-shadow: 0 0 0 1px var(--border); }
+:root[data-theme="light"] .seg button[aria-pressed="true"] { color: var(--text); }
+
+/* ---- tables ---- */
+.tablewrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; color: var(--muted); font-weight: 500; font-size: 11.5px; padding: 8px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+td { padding: 11px 10px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+td.num, th.num { text-align: right; }
+th:first-child, td:first-child { padding-left: 0; }
+th:last-child, td:last-child { padding-right: 0; }
+tr:last-child td { border-bottom: 0; }
+.side { font-size: 11.5px; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
+.side.long { background: color-mix(in srgb, var(--up) 16%, transparent); color: var(--good-text); }
+.side.short { background: color-mix(in srgb, var(--dn) 16%, transparent); color: var(--critical); }
+.empty { color: var(--muted); padding: 28px 8px; text-align: center; font-size: 13px; }
+
+/* ---- charts ---- */
+.chart { position: relative; }
+.chart svg { display: block; width: 100%; overflow: visible; }
+.tip { position: absolute; pointer-events: none; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px;
+  padding: 7px 10px; font-size: 12.5px; box-shadow: 0 6px 18px rgba(0,0,0,0.25); white-space: nowrap; display: none; z-index: 5; }
+.tip b { font-weight: 650; }
+.tip .m { color: var(--text-2); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--text-2); margin-top: 10px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { display: inline-block; width: 14px; height: 2px; border-radius: 1px; }
+.legend svg { width: 12px; height: 12px; overflow: visible; }
+.sigNow { background: var(--surface-2); border-radius: 10px; padding: 11px 13px; font-size: 13.5px; color: var(--text-2); line-height: 1.7; margin-top: 14px; }
+.sigNow b { color: var(--text); }
+
+/* ---- fold-away details ---- */
+details.fold { border-top: 1px solid var(--border); margin-top: 14px; }
+details.fold + details.fold { margin-top: 0; }
+details.fold > summary { cursor: pointer; font-size: 14px; font-weight: 650; padding: 13px 0; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary::after { content: '+'; color: var(--muted); font-size: 18px; font-weight: 400; }
+details.fold[open] > summary::after { content: '–'; }
+details.fold[open] { padding-bottom: 14px; }
+.rules, .gloss { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+.rules div, .gloss div { background: var(--surface-2); border-radius: 10px; padding: 10px 12px; font-size: 12.5px; color: var(--text-2); line-height: 1.6; }
+.rules b, .gloss b { color: var(--text); display: block; font-size: 13px; margin-bottom: 2px; }
+ul.events { margin: 0; padding: 0; list-style: none; font-size: 13px; color: var(--text-2); }
+ul.events li { padding: 8px 0; border-top: 1px solid var(--grid); }
+ul.events li:first-child { border-top: 0; padding-top: 0; }
+ul.events li b { color: var(--text); font-weight: 650; }
+
+/* ---- settings ---- */
+.form { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px 16px; }
+.form label { display: flex; flex-direction: column; gap: 5px; font-size: 12.5px; font-weight: 600; color: var(--text-2); }
+.keypw { display: flex; flex-direction: column; gap: 5px; font-size: 12.5px; font-weight: 600; color: var(--text-2); }
+.keypw input { font: inherit; font-size: 14px; padding: 9px 11px; border-radius: 9px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); }
+.form label small { color: var(--muted); font-size: 11.5px; font-weight: 400; }
+.form input, .form select { font: inherit; font-size: 14px; font-weight: 400; padding: 9px 11px; border-radius: 9px; width: 100%; min-width: 0;
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text); }
+.form input:focus, .form select:focus { outline: none; border-color: var(--accent); }
+.form input:disabled, .form select:disabled { opacity: 0.55; }
+.formfoot { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+
+/* ---- guide + log ---- */
+.guide ol { margin: 0; padding-left: 20px; color: var(--text-2); font-size: 13.5px; line-height: 1.8; }
+.guide ol b { color: var(--text); }
+pre.log { margin: 0; max-height: 260px; overflow: auto; font: 12px/1.6 ui-monospace, Consolas, monospace; color: var(--text-2);
+  white-space: pre-wrap; word-break: break-word; background: var(--surface-2); border-radius: 10px; padding: 12px; }
+
+/* ---- wallet card (balance) ---- */
+.balance { position: relative; overflow: hidden; isolation: isolate;
+  background: radial-gradient(120% 95% at 100% 0%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 62%),
+              linear-gradient(140deg, var(--surface-2), var(--surface) 70%); }
+.balance::after { content: ''; position: absolute; inset: -40% auto -40% -60%; width: 40%; z-index: -1; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.06), transparent); transform: skewX(-18deg);
+  animation: sheen 9s ease-in-out 1.5s infinite; }
+:root[data-theme="light"] .balance::after { background: linear-gradient(100deg, transparent, rgba(255,255,255,0.7), transparent); }
+@keyframes sheen { 0%, 70% { left: -60%; } 100% { left: 130%; } }
+.wc-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.wc-brand { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-2); }
+.wc-x { font-size: 12.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--wash); color: var(--text-2); }
+.wc-x.up { background: color-mix(in srgb, var(--up) 16%, transparent); color: var(--good-text); }
+.wc-x.down { background: color-mix(in srgb, var(--dn) 16%, transparent); color: var(--critical); }
+.wc-rules { font-size: 12px; color: var(--muted); margin: 0 0 12px; line-height: 1.6; }
+.wc-rules b { color: var(--text); font-weight: 650; }
+.balance .big.tick { animation: tick .9s ease; }
+@keyframes tick { 0% { color: var(--accent); } 100% { color: inherit; } }
+
+/* ---- team ---- */
+.team { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr)); gap: 10px; }
+.role { position: relative; background: var(--surface-2); border-radius: 12px; padding: 12px 14px 12px 16px; overflow: hidden; min-width: 0; }
+.role::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--muted); }
+.role.on::before { background: var(--good); } .role.warn::before { background: var(--warning); }
+.role.stop::before { background: var(--critical); } .role.off::before { background: var(--border); }
+.role .rh { display: flex; align-items: center; gap: 8px; }
+.role .ri { font-size: 18px; }
+.role .rn { font-weight: 700; font-size: 14px; }
+.role .rm { color: var(--muted); font-size: 12px; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.role .rn { flex: none; }
+.role .rnow, .role .rnext, .role .rlast, .role li { overflow-wrap: anywhere; }
+.role .rs { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); flex: none; }
+.role.on .rs { background: var(--good); box-shadow: 0 0 0 0 color-mix(in srgb, var(--good) 60%, transparent); animation: pulse 2s infinite; }
+.role.warn .rs { background: var(--warning); } .role.stop .rs { background: var(--critical); } .role.off .rs { background: var(--border); }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--good) 55%, transparent); } 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.role .rnow { font-size: 13px; color: var(--text); margin-top: 6px; line-height: 1.55; }
+.role .rnext { font-size: 12px; color: var(--text-2); margin-top: 3px; }
+.role ul { margin: 6px 0 0; padding: 0; list-style: none; font-size: 12.5px; }
+.role li { padding: 3px 0; border-top: 1px dashed var(--grid); }
+.role li:first-child { border-top: 0; }
+.role .rlast { font-size: 11.5px; color: var(--muted); margin-top: 6px; }
+.role.off { opacity: .65; }
+
+/* ---- touch & motion ---- */
+html { scroll-padding-top: 66px; }
+button, .btn, a, summary, select { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.btn, .seg button, .tabbar a, details.fold > summary, .chip { transition: transform .14s cubic-bezier(.2,.8,.2,1), background .15s, filter .15s, color .15s; }
+.btn:active:not(:disabled), .seg button:active, .tabbar a:active { transform: scale(.95); }
+details.fold > summary:active { transform: scale(.99); }
+.card, .hero > .card { animation: rise .5s cubic-bezier(.2,.7,.2,1) both; }
+.wrap > :nth-child(2) { animation-delay: .04s; } .wrap > :nth-child(3) { animation-delay: .08s; }
+.wrap > :nth-child(4) { animation-delay: .12s; } .wrap > :nth-child(5) { animation-delay: .16s; }
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+details.fold[open] > :not(summary) { animation: rise .3s ease both; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---- phone ---- */
+.tabbar { display: none; }
+@media (max-width: 900px) {
+  .hero, .row2 { grid-template-columns: 1fr; }
+  .nav { display: none; }
+}
+@media (max-width: 640px) {
+  :root { --gap: 12px; }
+  .bar-in { height: 52px; gap: 8px; }
+  .brand span { display: none; }
+  #mode { display: none; }
+  .wrap { padding-bottom: 92px; }
+  .card { padding: 16px 14px; }
+  .balance .big { font-size: 32px; }
+  .stats { grid-template-columns: 1fr 1fr; gap: 14px 0; }
+  .tile:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .seg { width: 100%; }
+  .seg button { flex: 1; padding: 9px 6px; }
+  .btn { padding: 12px 10px; }
+  .btn.small { padding: 7px 12px; }
+  .form { grid-template-columns: 1fr 1fr; gap: 12px 10px; }
+  .form label.wide { grid-column: 1 / -1; }
+  .form input, .form select { font-size: 16px; }
+  .rules, .gloss { grid-template-columns: 1fr; }
+  /* tables: one small block per row, nothing cut off sideways */
+  .tablewrap table, .tablewrap tbody, .tablewrap tr, .tablewrap td { display: block; width: 100%; }
+  .tablewrap thead { display: none; }
+  .tablewrap tr { padding: 10px 0; border-bottom: 1px solid var(--grid); }
+  .tablewrap tr:first-child { padding-top: 0; }
+  .tablewrap tr:last-child { border-bottom: 0; padding-bottom: 0; }
+  .tablewrap td { display: flex; justify-content: flex-end; align-items: baseline; gap: 8px; padding: 3px 0; border: 0; white-space: normal; text-align: right; }
+  .tablewrap td::before { content: attr(data-label); color: var(--muted); font-size: 12px; text-align: left; flex: none; margin-right: auto; }
+  .tablewrap td:empty, .tablewrap td.dash { display: none; }
+  .tablewrap td:first-child { font-weight: 700; font-size: 15px; justify-content: flex-start; }
+  .tablewrap td:first-child::before { display: none; }
+  .tablewrap td br { display: none; }
+  .tabbar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+    background: color-mix(in srgb, var(--surface) 86%, transparent); -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4);
+    border-top: 1px solid var(--border); padding: 6px 8px calc(6px + env(safe-area-inset-bottom)); }
+  .tabbar a { display: flex; flex-direction: column; align-items: center; gap: 2px; text-decoration: none; color: var(--muted); font-size: 11px; font-weight: 600;
+    padding: 6px 0; min-height: 50px; justify-content: center; border-radius: 14px; }
+  .tabbar a svg { width: 22px; height: 22px; transition: transform .2s cubic-bezier(.2,.8,.2,1); }
+  .tabbar a.on { color: var(--accent); background: var(--wash); }
+  .tabbar a.on svg { transform: translateY(-1px) scale(1.08); }
+  .btn { min-height: 46px; border-radius: 12px; }
+  .btn.small { min-height: 36px; }
+  .seg button { min-height: 40px; }
+  details.fold > summary { padding: 15px 0; }
+  .balance .big { font-size: 36px; }
+  .wc-rules { font-size: 11.5px; }
+  :root[data-theme="light"] .tabbar a.on { color: var(--text); }
+}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="bar-in">
+    <h1 class="brand"><svg class="logo" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="200 160 624 690"><rect x="200" y="160" width="624" height="690" rx="120" fill="#0b0e11"/> <g transform="translate(0 0) scale(1)"> <line x1="512" y1="300" x2="512" y2="222" stroke="#fcd535" stroke-width="30" stroke-linecap="round"/> <circle cx="512" cy="200" r="34" fill="#fcd535"/> <rect x="226" y="438" width="34" height="150" rx="17" fill="#fcd535"/> <rect x="764" y="438" width="34" height="150" rx="17" fill="#fcd535"/> <rect x="270" y="300" width="484" height="430" rx="110" fill="#181a20" stroke="#fcd535" stroke-width="30"/> <g stroke-linecap="round" stroke-linejoin="round" fill="none"> <polyline points="356,410 640,410 366,624 532,624" stroke="#fcd535" stroke-width="58"/> <line x1="532" y1="624" x2="636" y2="520" stroke="#0ecb81" stroke-width="52"/> <polygon points="690,466 676,580 576,480" fill="#0ecb81" stroke="#0ecb81" stroke-width="18"/> </g> <rect x="352" y="772" width="22" height="58" rx="6" fill="#f6465d"/> <rect x="402" y="760" width="22" height="70" rx="6" fill="#0ecb81"/> <rect x="452" y="782" width="22" height="48" rx="6" fill="#f6465d"/> <rect x="502" y="746" width="22" height="84" rx="6" fill="#0ecb81"/> <rect x="552" y="734" width="22" height="96" rx="6" fill="#0ecb81"/> <rect x="602" y="756" width="22" height="74" rx="6" fill="#f6465d"/> <rect x="652" y="720" width="22" height="110" rx="6" fill="#0ecb81"/> </g></svg><span>zBOT Trader</span></h1>
+    <nav class="nav" aria-label="Sections">
+      <a href="#secControl">Home</a><a href="#secTeam">Team</a><a href="#secCoins">Coins</a><a href="#secSignal">Chart</a><a href="#secEquity">Results</a><a href="#secTrades">Trades</a><a href="#secSettings">Settings</a><a href="#secGuide">လမ်းညွှန်</a>
+    </nav>
+    <span class="spacer"></span>
+    <span class="pill" id="alive"><span class="dot"></span><span>…</span></span>
+    <span class="pill" id="mode">…</span>
+    <button class="btn small icon" id="btnTheme" type="button" aria-label="အရောင်ပြောင်း (Dark / Light)" title="Dark / Light">◐</button>
+    <button class="btn small" id="btnLogout" hidden>Logout</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="err" id="err"></div>
+
+  <section class="hero" id="secControl">
+    <div class="card balance">
+      <div class="wc-top"><span class="wc-brand">💳 zBOT Wallet</span><span class="wc-x" id="wcX">–</span></div>
+      <div class="wc-rules" id="wcRules"></div>
+      <div class="label"><span>စုစုပေါင်းငွေ (Equity)</span><span class="hint">Updated <span id="updated">–</span></span></div>
+      <div class="big" id="heroEq">–</div>
+      <div class="sub" id="heroSub">Loading…</div>
+      <div class="stats" id="tiles"></div>
+    </div>
+    <div class="card control">
+      <div class="plain" id="plain" role="status"><span class="ic">⏳</span><div>Loading…</div></div>
+      <div class="btns">
+        <button class="btn primary" id="btnStart">▶ Start bot</button>
+        <button class="btn" id="btnPause">⏸ Pause new trades</button>
+        <button class="btn" id="btnStop">⏹ Stop bot</button>
+        <button class="btn danger" id="btnCloseAll">✕ Close all positions</button>
+      </div>
+      <p class="hint" id="ctlHint"></p>
+      <div class="toast" id="toast" role="status"></div>
+      <div class="chips" id="sub"></div>
+    </div>
+  </section>
+
+  <section class="card" id="secTeam">
+    <div class="head"><div><h2>👥 zBOT Team</h2><p class="hint">Bot ရဲ့ အပိုင်းတစ်ခုစီက <b>အခု တကယ်</b> ဘာလုပ်နေလဲ (Log, State ဖိုင်တွေကနေ တိုက်ရိုက်) · <span id="teamAt">–</span></p></div></div>
+    <div class="team" id="team"><div class="empty">Loading…</div></div>
+  </section>
+
+  <section class="card" id="secCoins">
+    <div class="head"><div><h2>Coins</h2><p class="hint">ဈေးနှုန်းက Binance အစစ်ကနေ ၅ စက္ကန့်တစ်ခါ Update လုပ်ပါတယ်</p></div></div>
+    <div class="tablewrap" id="coins"></div>
+  </section>
+
+  <section class="card" id="secSignal">
+    <div class="head">
+      <div><h2>Signal chart</h2><p class="hint" id="sigHint">Bot ဘယ်မှာ ဝင်မလဲ / ဘာလို့ မဝင်သေးလဲ</p></div>
+      <div class="seg" role="group" aria-label="Coin" id="sigCoins"></div>
+    </div>
+    <div class="chart" id="sigChart"></div>
+    <div class="legend" id="sigLegend"></div>
+    <p class="sigNow" id="sigNow"></p>
+    <details class="fold" open>
+      <summary>ဒီ Chart ပေါ်က Trade များ (Strategy အတိုင်း တွက်ထားတာ)</summary>
+      <div class="tablewrap" id="sigTrades"></div>
+    </details>
+    <details class="fold" id="rulesFold">
+      <summary>Strategy စည်းမျဉ်း: Entry / SL / TP ဘယ်လို ယူလဲ</summary>
+      <div class="rules" id="sigRules"></div>
+    </details>
+    <details class="fold">
+      <summary>Signal များ (နောက်ဆုံး ၈ ခု)</summary>
+      <ul class="events" id="sigEvents"></ul>
+    </details>
+  </section>
+
+  <div class="row2" id="secEquity">
+    <section class="card">
+      <div class="head">
+        <div><h2>Equity curve</h2><p class="hint" id="eqHint"></p></div>
+        <div class="seg" role="group" aria-label="Data source">
+          <button data-src="paper">Paper (Live)</button>
+          <button data-src="backtest">Backtest</button>
+        </div>
+      </div>
+      <div class="chart" id="eqChart"></div>
+    </section>
+    <section class="card">
+      <div class="head"><div><h2>P&amp;L by coin</h2><p class="hint" id="barHint"></p></div></div>
+      <div class="chart" id="barChart"></div>
+    </section>
+  </div>
+
+  <section class="card" id="secTrades">
+    <div class="head"><div><h2>Closed trades</h2><p class="hint" id="tradesHint"></p></div></div>
+    <div class="tablewrap" id="trades"></div>
+  </section>
+
+  <section class="card" id="secSettings">
+    <div class="head"><div><h2>Settings</h2><p class="hint" id="setHint"></p></div></div>
+    <form class="form" id="setForm" autocomplete="off"></form>
+    <div class="formfoot">
+      <button class="btn primary" id="btnSave" type="button">Save settings</button>
+      <span class="toast" id="setToast"></span>
+    </div>
+  </section>
+
+  <section class="card" id="secKeys">
+    <div class="head"><div><h2>API Keys</h2><p class="hint">Key ကို Copy → ဒီမှာ Paste → Save။ ထည့်ပြီးသား Key ကို ဘယ်တော့မှ ပြန်မပြပါ (နောက်ဆုံး ၄ လုံးပဲ)။ အကွက်လွတ်ထားရင် မပြောင်းပါ။ Live (ငွေအစစ်) ဖွင့်တာကတော့ Server မှာပဲ လုပ်လို့ရပါတယ်။</p></div></div>
+    <form class="form" id="keyForm" autocomplete="off"></form>
+    <div class="formfoot">
+      <label class="keypw">Dashboard password<input type="password" id="keyPw" autocomplete="current-password"></label>
+      <button class="btn primary" id="btnKeys" type="button">Save keys</button>
+      <span class="toast" id="keyToast"></span>
+    </div>
+  </section>
+
+  <section class="card guide" id="secGuide">
+    <div class="head"><div><h2>စသုံးသူအတွက် လမ်းညွှန်</h2><p class="hint">Trading အသစ်ဆိုရင် ဒါလေး အရင်ဖတ်ပါ</p></div></div>
+    <ol>
+      <li><b>PAPER (ငွေအတု)</b> နဲ့ အရင်စမ်းပါ။ ငွေအစစ် လုံးဝ မထိပါ။</li>
+      <li><b>▶ Start bot</b> နှိပ်ပါ။ Bot က Candle ပိတ်တိုင်း (4h ဆို တစ်နေ့ ၆ ကြိမ်) Signal စစ်ပြီး အခွင့်အရေးရှိမှ ဝင်ပါတယ်။ ရက်အနည်းငယ် မဝင်တာ ပုံမှန်ပါ။</li>
+      <li><b>Chart</b> မှာ Bot ဘယ်မှာ ဝင်/ထွက်မလဲ ကြည့်ပါ။ <b>Trades</b> မှာ ရလဒ် ကြည့်ပါ။</li>
+      <li>၁–၃ လ Paper ရလဒ်က Backtest နဲ့ တူမှ ငွေအစစ် စဉ်းစားပါ။ ရှုံးတာ ပြန်ရဖို့ Risk မတိုးပါနဲ့။</li>
+    </ol>
+    <details class="fold">
+      <summary>စကားလုံး အဓိပ္ပာယ်များ (Equity, Long, SL, R …)</summary>
+      <div class="gloss">
+        <div><b>Equity</b>Account ထဲက စုစုပေါင်းငွေ (ဖွင့်ထားတဲ့ Trade ရဲ့ အမြတ်/အရှုံး အပါ)။</div>
+        <div><b>P&amp;L</b>Profit and Loss = အမြတ်/အရှုံး။ Realized = ပိတ်ပြီးသား၊ Unrealized = ဖွင့်ထားဆဲ။</div>
+        <div><b>Long ▲ / Short ▼</b>Long = ဈေးတက်မယ်လို့ ဝယ်တာ။ Short = ဈေးကျမယ်လို့ ရောင်းတာ (Futures မှာပဲ ရ)။</div>
+        <div><b>SL (Stop-loss)</b>ဈေးက မှားတဲ့ဘက် သွားရင် အလိုအလျောက် ပိတ်ပြီး အရှုံးကို ကန့်သတ်တဲ့ဈေး။</div>
+        <div><b>TP / Trailing stop</b>TP = အမြတ်ယူမယ့်ဈေး။ Trailing = ဈေးက ကိုယ့်ဘက်သွားလေ SL ကို လိုက်ရွှေ့ပြီး အမြတ်ကို ချိတ်ထားတာ။</div>
+        <div><b>R</b>Trade တစ်ခုမှာ ရှုံးနိုင်တဲ့ငွေ = 1R။ +2R = အဲဒီရဲ့ ၂ ဆ အမြတ်၊ -1R = SL ထိပြီး ရှုံး။</div>
+        <div><b>Candle</b>အချိန်တစ်ကွက်ရဲ့ ဈေး။ အစိမ်း = တက်၊ အနီ = ကျ။ အမြှီး = အမြင့်ဆုံး/အနိမ့်ဆုံးဈေး။</div>
+        <div><b>EMA</b>ပျမ်းမျှဈေးမျဉ်း။ Price က EMA200 အပေါ် = Trend တက်၊ အောက် = Trend ကျ။</div>
+        <div><b>Win rate</b>အနိုင်ရတဲ့ Trade ရာခိုင်နှုန်း။ ဒီ Strategy က ၃ ခုမှာ ၁ ခုလောက်ပဲ နိုင်ပေမယ့် နိုင်တဲ့အခါ ပိုများအောင် ယူပါတယ်။</div>
+      </div>
+    </details>
+    <details class="fold" id="secLog">
+      <summary>Bot log (နောက်ဆုံး စာကြောင်း ၄၀)</summary>
+      <pre class="log" id="log"></pre>
+    </details>
+  </section>
+</main>
+
+<nav class="tabbar" aria-label="Sections">
+  <a href="#secControl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Home</a>
+  <a href="#secCoins"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>Coins</a>
+  <a href="#secSignal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v18M17 3v18"/><rect x="5" y="7" width="4" height="8"/><rect x="15" y="9" width="4" height="7"/></svg>Chart</a>
+  <a href="#secTrades"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Trades</a>
+  <a href="#secSettings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>Settings</a>
+</nav>
+
+<script>
+const $ = (id) => document.getElementById(id);
+function labelCells(wrap) {
+  const heads = [...wrap.querySelectorAll('thead th')].map((th) => th.textContent.trim());
+  wrap.querySelectorAll('tbody tr').forEach((tr) => [...tr.children].forEach((td, i) => { if (heads[i] && !td.dataset.label) td.dataset.label = heads[i]; td.classList.toggle('dash', td.textContent.trim() === '–'); }));
+}
+document.querySelectorAll('.tablewrap').forEach((w) => new MutationObserver(() => labelCells(w)).observe(w, { childList: true }));
+
+const fmt = (v, d = 2) => Number.isFinite(v) ? v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }) : '–';
+const money = (v) => (v > 0 ? '+' : '') + fmt(v) ;
+const priceFmt = (v) => !Number.isFinite(v) ? '–' : v >= 1000 ? fmt(v, 1) : v >= 1 ? fmt(v, 3) : fmt(v, 5);
+const coin = (s) => s.replace(/USDT$/, '');
+const dt = (t) => new Date(t).toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+const dDate = (t) => new Date(t).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' });
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+let S = null, BT = null;
+let src = null; // 'paper' | 'backtest'
+try { src = localStorage.getItem('zbot-src'); } catch {}
+
+// ---------- data ----------
+async function load() {
+  try {
+    const r = await fetch('/api/status');
+    if (r.status === 401) { location.href = '/login'; return; }
+    S = await r.json();
+    if (S.error) throw new Error(S.error);
+    $('err').style.display = 'none';
+  } catch (e) {
+    $('err').textContent = 'Dashboard server ကို ဆက်သွယ်လို့ မရပါ (' + e.message + ')။ "node src/index.js dashboard" Run နေလား စစ်ပါ။';
+    $('err').style.display = 'block';
+    return;
+  }
+  if (!BT) { try { BT = await (await fetch('/api/backtest')).json(); } catch { BT = { trades: [] }; } }
+  render();
+}
+
+function paperCurve() {
+  const start = S.config.startBalance;
+  const rows = [...S.journal].sort((a, b) => Date.parse(a.closed) - Date.parse(b.closed));
+  let eq = start;
+  const pts = [];
+  if (rows.length) pts.push({ t: Date.parse(rows[0].opened), v: start, label: 'Start' });
+  for (const r of rows) { eq += r.pnl; pts.push({ t: Date.parse(r.closed), v: eq, label: `${coin(r.symbol)} ${r.side} ${r.exit_reason}`, pnl: r.pnl }); }
+  return { pts, start, trades: rows.map((r) => ({ symbol: r.symbol, pnl: r.pnl, R: r.R })) };
+}
+function backtestCurve() {
+  const start = BT.startBalance ?? S.config.startBalance;
+  const pts = BT.trades.length ? [{ t: BT.trades[0].t, v: start, label: 'Start' }] : [];
+  for (const t of BT.trades) pts.push({ t: t.t, v: t.equity, label: `${coin(t.symbol)} ${t.side} ${t.why}`, pnl: t.pnl });
+  return { pts, start, trades: BT.trades };
+}
+
+// ---------- render ----------
+function render() {
+  const c = S.config, st = S.state;
+  // header
+  const alive = $('alive');
+  const B = S.bot, paused = S.control.paused;
+  const net = B.running && B.netRetry;
+  alive.querySelector('.dot').style.background = !B.running ? css('--critical') : (net || paused) ? css('--warning') : css('--good');
+  alive.querySelector('span:last-child').textContent = !B.running ? 'Bot ရပ်နေပါတယ်'
+    : net ? 'Internet ပြတ်နေ · Retry လုပ်နေတယ်' : paused ? 'Paused · Trade အသစ် မဝင်' : 'Bot running';
+  renderControls();
+  {
+    const nPos = Object.keys(S.state?.positions ?? {}).length;
+    const fake = c.mode === 'paper' ? 'ငွေအတု (PAPER) နဲ့ စမ်းနေတာပါ၊ ငွေအစစ် မထိပါ။' : c.mode === 'live' ? '⚠️ ငွေအစစ် (LIVE) နဲ့ Run နေပါတယ်။' : 'Testnet နဲ့ စမ်းနေပါတယ်။';
+    const nextAt = SIG?.now?.nextBarAt > Date.now() ? new Date(SIG.now.nextBarAt).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) : null;
+    let ic, msg;
+    if (!B.running) { ic = '💤'; msg = '<b>Bot ရပ်နေပါတယ်။</b> စချင်ရင် <b>▶ Start bot</b> ကို နှိပ်ပါ။ ' + fake; }
+    else if (net) { ic = '📡'; msg = '<b>Internet ပြတ်နေလို့ ပြန်ချိတ်နေပါတယ်။</b> ဖွင့်ထားတဲ့ Position ရဲ့ Stop-loss က ဆက်ရှိပါတယ်။'; }
+    else if (paused) { ic = '⏸'; msg = `<b>ခဏရပ်ထားပါတယ်။</b> Trade အသစ် မဝင်ပါ၊ ဖွင့်ထားတဲ့ ${nPos} ခုကိုပဲ ထိန်းနေပါတယ်။`; }
+    else if (nPos) { ic = '📈'; msg = `<b>Bot က Trade ${nPos} ခု ဖွင့်ထားပါတယ်</b> (${Object.keys(S.state.positions).map(coin).join(', ')})။ Stop-loss ကို အလိုအလျောက် ထိန်းနေပါတယ်။ ` + fake; }
+    else { ic = '👀'; msg = `<b>Bot က အခွင့်အရေး စောင့်နေပါတယ်။</b> ${c.interval} Candle ပိတ်တိုင်း Coin ${c.symbols.length} ခုကို စစ်ပါတယ်${nextAt ? ` (နောက်တစ်ခါ <b>${nextAt}</b>)` : ''}။ ` + fake; }
+    $('plain').innerHTML = `<span class="ic">${ic}</span><div>${msg}</div>`;
+  }
+  $('btnLogout').hidden = !S.authOn;
+  const m = $('mode');
+  m.textContent = c.mode.toUpperCase() + (c.mode === 'paper' ? ' · ငွေအတု' : c.mode === 'live' ? ' · ငွေအစစ်' : ' · Testnet');
+  m.className = 'pill ' + (c.mode === 'live' ? 'mode-live' : 'mode-paper');
+  $('updated').textContent = new Date(S.now).toLocaleTimeString('en-GB');
+  $('sub').innerHTML = [
+    c.market === 'futures' ? 'Futures' : 'Spot', c.symbols.map(coin).join(' · '), 'Strategy ' + c.strategy, c.interval,
+    'Risk ' + c.riskPct + '%', 'Max ' + c.maxOpen + ' open', 'Daily stop ' + c.dailyLossPct + '%', ...(c.market === 'futures' ? [c.leverage + 'x'] : []),
+  ].map((t) => `<span class="chip">${esc(t)}</span>`).join('');
+
+  // positions + unrealized
+  const positions = st?.positions ?? {};
+  let unreal = 0;
+  for (const [s, p] of Object.entries(positions)) {
+    const px = S.prices[s];
+    if (Number.isFinite(px)) unreal += (px - p.entry) * p.qty * (p.side === 'long' ? 1 : -1);
+  }
+  const realized = S.journal.reduce((a, r) => a + r.pnl, 0);
+  const equityNow = (c.mode === 'paper' ? (st?.paperEquity ?? c.startBalance) : (st?.day?.startEquity ?? NaN)) + unreal;
+  const base = c.startBalance;
+  const wins = S.journal.filter((r) => r.pnl > 0).length;
+  const day = st?.day ?? {};
+  const dayPnl = Number.isFinite(day.startEquity) && c.mode === 'paper' ? equityNow - day.startEquity : NaN;
+
+  const tile = (k, v, s, cls = '') => `<div class="tile"><div class="k">${k}</div><div class="v ${cls}">${v}</div><div class="s">${s}</div></div>`;
+  const pnlCls = (v) => v > 0 ? 'up' : v < 0 ? 'down' : '';
+  {
+    const total = equityNow - base;
+    const eqHtml = fmt(equityNow) + '<small>USDT</small>', heroEl = $('heroEq');
+    if (heroEl.innerHTML !== eqHtml) {
+      if (heroEl.dataset.seen) { heroEl.classList.remove('tick'); void heroEl.offsetWidth; heroEl.classList.add('tick'); }
+      heroEl.innerHTML = eqHtml; heroEl.dataset.seen = '1';
+    }
+    const xMul = Number.isFinite(equityNow) && base ? equityNow / base : NaN;
+    $('wcX').textContent = Number.isFinite(xMul) ? xMul.toFixed(2) + 'x' : (c.mode === 'paper' ? 'PAPER' : c.mode.toUpperCase());
+    $('wcX').className = 'wc-x ' + (Number.isFinite(xMul) ? pnlCls(xMul - 1) : '');
+    $('wcRules').innerHTML = 'MY RULES · ' + [
+      `<b>risk ${esc(c.riskPct)}%</b> / trade`, `max <b>${esc(c.maxOpen)}</b> open`,
+      ...(c.market === 'futures' ? [`leverage <b>${esc(c.leverage)}x</b>`] : []), `daily stop <b>-${esc(c.dailyLossPct)}%</b>`,
+    ].join(' · ');
+    $('heroSub').innerHTML = Number.isFinite(total)
+      ? `<span class="chg ${pnlCls(total)}">${money(total)} (${money(total / base * 100)}%)</span> စတင်ငွေ ${fmt(base, 0)} USDT ကနေ${unreal ? ` · ဖွင့်ထားဆဲ ${money(unreal)}` : ''}`
+      : 'Exchange balance';
+  }
+  $('tiles').innerHTML = [
+    tile('Realized P&L', money(realized), `${fmt(realized / base * 100)}% · ${S.journal.length} trades ပိတ်ပြီး`, pnlCls(realized)),
+    tile('Open positions', `${Object.keys(positions).length} / ${c.maxOpen}`, Object.keys(positions).length ? Object.keys(positions).map(coin).join(', ') : 'Signal စောင့်နေပါတယ်'),
+    tile('Today', day.halted ? '⛔ Stopped' : '✓ Trading', `${day.trades ?? 0} trades today / max ${c.maxTradesPerDay}` + (Number.isFinite(dayPnl) ? ` · ${money(dayPnl)}` : ''), day.halted ? 'down' : ''),
+    tile('Win rate', S.journal.length ? fmt(wins / S.journal.length * 100, 0) + '%' : '–', S.journal.length ? `${wins} win / ${S.journal.length - wins} loss` : 'Trade မပိတ်ရသေးပါ'),
+  ].join('');
+
+  // coins table
+  const rows = c.symbols.map((s) => {
+    const p = positions[s], px = S.prices[s];
+    const last = st?.lastBarT?.[s];
+    if (!p) return `<tr><td><b>${coin(s)}</b></td><td class="num">${priceFmt(px)}</td><td><span class="m" style="color:var(--muted)">Waiting</span></td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td>${last ? 'bar ' + dt(last) : '–'}</td><td></td></tr>`;
+    const closing = S.pending.some((c) => (c.type === 'close' && c.symbol === s) || c.type === 'closeAll');
+    const dir = p.side === 'long' ? 1 : -1;
+    const u = Number.isFinite(px) ? (px - p.entry) * p.qty * dir : NaN;
+    const r = u / p.riskAmt;
+    return `<tr><td><b>${coin(s)}</b></td><td class="num">${priceFmt(px)}</td>
+      <td><span class="side ${p.side}">${p.side === 'long' ? '▲ LONG' : '▼ SHORT'}</span></td>
+      <td class="num">${priceFmt(p.entry)}</td><td class="num">${priceFmt(p.sl)}${p.trailAtr ? ' <span style="color:var(--muted)">trail</span>' : ''}</td>
+      <td class="num ${pnlCls(u)}">${money(u)}</td><td class="num ${pnlCls(r)}">${fmt(r)}R</td><td>opened ${dt(p.entryT)}</td>
+      <td><button class="btn small danger" data-close="${s}" ${!S.bot.running || closing ? 'disabled' : ''}>${closing ? 'Closing…' : 'Close'}</button></td></tr>`;
+  }).join('');
+  $('coins').innerHTML = `<table><thead><tr><th>Coin</th><th class="num">Price</th><th>Position</th><th class="num">Entry</th><th class="num">Stop</th><th class="num">Unrealized</th><th class="num">R</th><th>Info</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  $('coins').querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => {
+    const s = b.dataset.close;
+    if (confirm(`${coin(s)} Position ကို ဈေးကွက်ဈေး (Market) နဲ့ အခုပိတ်မှာ သေချာလား?` + (c.mode === 'live' ? '\n\n⚠️ LIVE: ငွေအစစ်ပါ။' : ''))) post('/api/close', { symbol: s });
+  }));
+
+  // source toggle
+  if (!src) src = S.journal.length ? 'paper' : 'backtest';
+  document.querySelectorAll('.seg button[data-src]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.src === src)));
+  const data = src === 'paper' ? paperCurve() : backtestCurve();
+  $('eqHint').textContent = src === 'paper'
+    ? (data.pts.length ? `Paper trading · ပိတ်ပြီးသား Trade ${data.trades.length} ခု` : '')
+    : (BT.file ? `Backtest (${BT.file}) · Trade ${BT.trades.length} ခု` : '');
+  lineChart($('eqChart'), data.pts, data.start,
+    src === 'paper' ? 'Paper မှာ ပိတ်ပြီးသား Trade မရှိသေးပါ။ Trade ပိတ်တာနဲ့ Chart ပေါ်လာပါမယ်။ အခုအတွက် Backtest ကို နှိပ်ကြည့်ပါ။'
+      : 'Backtest data မရှိသေးပါ။ "node src/index.js backtest" ကို Run ပါ။');
+  $('barHint').textContent = src === 'paper' ? 'Paper trading, realized USDT' : 'Backtest, realized USDT';
+  barChart($('barChart'), c.symbols, data.trades);
+
+  // trades table
+  const recent = [...S.journal].sort((a, b) => Date.parse(b.closed) - Date.parse(a.closed)).slice(0, 50);
+  $('tradesHint').textContent = recent.length ? `Paper/${c.mode} journal · နောက်ဆုံး ${recent.length} ခု` : '';
+  $('trades').innerHTML = recent.length ? `<table><thead><tr><th>Closed</th><th>Coin</th><th>Side</th><th class="num">Entry</th><th class="num">Exit</th><th class="num">P&L</th><th class="num">R</th><th>Exit</th><th>Why entered</th></tr></thead><tbody>${
+    recent.map((r) => `<tr><td>${dt(Date.parse(r.closed))}</td><td><b>${coin(r.symbol)}</b></td><td><span class="side ${r.side}">${r.side === 'long' ? '▲ LONG' : '▼ SHORT'}</span></td>
+      <td class="num">${priceFmt(r.entry)}</td><td class="num">${priceFmt(r.exit)}</td><td class="num ${pnlCls(r.pnl)}">${money(r.pnl)}</td>
+      <td class="num ${pnlCls(r.R)}">${fmt(r.R)}R</td><td>${esc(r.exit_reason)}</td><td style="color:var(--text-2)">${esc(r.entry_reason)}</td></tr>`).join('')
+  }</tbody></table>` : `<div class="empty">Trade မပိတ်ရသေးပါ။ ${c.interval} Candle ပိတ်တိုင်း Signal စစ်နေပါတယ်။ အပေါ်က Signal chart မှာ ဘယ်ချိန် ဝင်မလဲ ကြည့်ပါ။</div>`;
+
+  // log
+  const logEl = $('log');
+  const atBottom = logEl.scrollTop + logEl.clientHeight >= logEl.scrollHeight - 4;
+  logEl.textContent = S.log.length ? S.log.join('\n') : 'Log မရှိသေးပါ';
+  if (atBottom) logEl.scrollTop = logEl.scrollHeight;
+}
+
+// ---------- charts (plain SVG) ----------
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs = {}, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  parent?.appendChild(e);
+  return e;
+}
+function niceTicks(min, max, n = 4) {
+  const span = max - min || 1;
+  const step0 = span / n, mag = 10 ** Math.floor(Math.log10(step0));
+  const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => span / s <= n) ?? 10 * mag;
+  const ticks = [];
+  for (let v = Math.ceil(min / step) * step; v <= max + 1e-9; v += step) ticks.push(+v.toFixed(10));
+  return ticks;
+}
+
+function lineChart(box, pts, start, emptyMsg) {
+  box.innerHTML = '';
+  if (pts.length < 2) { box.innerHTML = `<div class="empty">${emptyMsg}</div>`; return; }
+  const W = Math.max(box.clientWidth, 280), H = 260, m = { l: 56, r: 14, t: 10, b: 28 };
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Equity curve' }, box);
+  const t0 = pts[0].t, t1 = pts.at(-1).t;
+  let lo = Math.min(start, ...pts.map((p) => p.v)), hi = Math.max(start, ...pts.map((p) => p.v));
+  const pad = (hi - lo) * 0.08 || 10; lo -= pad; hi += pad;
+  const x = (t) => m.l + (t - t0) / (t1 - t0 || 1) * (W - m.l - m.r);
+  const y = (v) => m.t + (hi - v) / (hi - lo) * (H - m.t - m.b);
+  for (const v of niceTicks(lo, hi)) {
+    el('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: css('--grid'), 'stroke-width': 1 }, svg);
+    el('text', { x: m.l - 8, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: css('--muted') }, svg).textContent = fmt(v, 0);
+  }
+  const nx = Math.max(2, Math.min(6, Math.floor((W - m.l) / 110)));
+  for (let i = 0; i <= nx; i++) {
+    const t = t0 + (t1 - t0) * i / nx;
+    el('text', { x: x(t), y: H - 8, 'text-anchor': i === 0 ? 'start' : i === nx ? 'end' : 'middle', 'font-size': 11, fill: css('--muted') }, svg).textContent = dDate(t);
+  }
+  // start-balance reference
+  el('line', { x1: m.l, x2: W - m.r, y1: y(start), y2: y(start), stroke: css('--axis'), 'stroke-width': 1, 'stroke-dasharray': '4 4' }, svg);
+  el('text', { x: W - m.r, y: y(start) - 5, 'text-anchor': 'end', 'font-size': 11, fill: css('--muted') }, svg).textContent = 'start ' + fmt(start, 0);
+  // step line: equity changes only when a trade closes
+  let d = `M${x(pts[0].t)},${y(pts[0].v)}`;
+  for (let i = 1; i < pts.length; i++) d += `H${x(pts[i].t)}V${y(pts[i].v)}`;
+  el('path', { d, fill: 'none', stroke: css('--series-1'), 'stroke-width': 2, 'stroke-linejoin': 'round' }, svg);
+  const last = pts.at(-1);
+  el('circle', { cx: x(last.t), cy: y(last.v), r: 4, fill: css('--series-1'), stroke: css('--surface'), 'stroke-width': 2 }, svg);
+
+  // hover: crosshair + tooltip
+  const cross = el('line', { y1: m.t, y2: H - m.b, stroke: css('--axis'), 'stroke-width': 1, visibility: 'hidden' }, svg);
+  const dot = el('circle', { r: 5, fill: css('--series-1'), stroke: css('--surface'), 'stroke-width': 2, visibility: 'hidden' }, svg);
+  const tip = document.createElement('div'); tip.className = 'tip'; box.appendChild(tip);
+  const hit = el('rect', { x: m.l, y: 0, width: W - m.l - m.r, height: H, fill: 'transparent' }, svg);
+  const move = (ev) => {
+    const r = svg.getBoundingClientRect();
+    const px = (ev.clientX - r.left) * (W / r.width);
+    let best = 0;
+    for (let i = 0; i < pts.length; i++) if (Math.abs(x(pts[i].t) - px) < Math.abs(x(pts[best].t) - px)) best = i;
+    const p = pts[best];
+    cross.setAttribute('x1', x(p.t)); cross.setAttribute('x2', x(p.t)); cross.setAttribute('visibility', 'visible');
+    dot.setAttribute('cx', x(p.t)); dot.setAttribute('cy', y(p.v)); dot.setAttribute('visibility', 'visible');
+    tip.innerHTML = `<b>${fmt(p.v)} USDT</b><br><span class="m">${dt(p.t)} · ${esc(p.label)}${p.pnl !== undefined ? ' · ' + money(p.pnl) : ''}</span>`;
+    tip.style.display = 'block';
+    const sx = x(p.t) * (r.width / W);
+    tip.style.left = Math.min(Math.max(sx - tip.offsetWidth / 2, 0), r.width - tip.offsetWidth) + 'px';
+    tip.style.top = Math.max(y(p.v) * (r.height / H) - tip.offsetHeight - 12, 0) + 'px';
+  };
+  hit.addEventListener('pointermove', move);
+  hit.addEventListener('pointerleave', () => { tip.style.display = 'none'; cross.setAttribute('visibility', 'hidden'); dot.setAttribute('visibility', 'hidden'); });
+}
+
+function barChart(box, symbols, trades) {
+  box.innerHTML = '';
+  const stats = symbols.map((s) => {
+    const ts = trades.filter((t) => t.symbol === s);
+    return { s, n: ts.length, pnl: ts.reduce((a, t) => a + t.pnl, 0), wins: ts.filter((t) => t.pnl > 0).length };
+  });
+  if (!trades.length) { box.innerHTML = '<div class="empty">Trade မရှိသေးပါ</div>'; return; }
+  const W = Math.max(box.clientWidth, 240), rowH = 34, m = { l: 46, r: 64, t: 6, b: 6 };
+  const H = m.t + m.b + rowH * stats.length;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'P&L by coin' }, box);
+  const maxAbs = Math.max(...stats.map((d) => Math.abs(d.pnl)), 1);
+  const hasNeg = stats.some((d) => d.pnl < 0);
+  const zero = hasNeg ? m.l + (W - m.l - m.r) / 2 : m.l;
+  const scale = (W - m.l - m.r) / (hasNeg ? 2 : 1) / maxAbs;
+  el('line', { x1: zero, x2: zero, y1: m.t, y2: H - m.b, stroke: css('--axis'), 'stroke-width': 1 }, svg);
+  const tip = document.createElement('div'); tip.className = 'tip'; box.appendChild(tip);
+  stats.forEach((d, i) => {
+    const cy = m.t + i * rowH + rowH / 2, bh = 14;
+    el('text', { x: 0, y: cy + 4, 'font-size': 12, 'font-weight': 600, fill: css('--text') }, svg).textContent = coin(d.s);
+    const w = Math.abs(d.pnl) * scale;
+    if (w > 0.5) {
+      const r = Math.min(4, w);
+      const x0 = zero, x1 = d.pnl >= 0 ? zero + w : zero - w, y0 = cy - bh / 2, y1 = cy + bh / 2;
+      // rounded only at the data end, square on the zero line
+      const path = d.pnl >= 0
+        ? `M${x0},${y0}H${x1 - r}Q${x1},${y0} ${x1},${y0 + r}V${y1 - r}Q${x1},${y1} ${x1 - r},${y1}H${x0}Z`
+        : `M${x0},${y0}H${x1 + r}Q${x1},${y0} ${x1},${y0 + r}V${y1 - r}Q${x1},${y1} ${x1 + r},${y1}H${x0}Z`;
+      el('path', { d: path, fill: d.pnl >= 0 ? css('--up') : css('--dn') }, svg);
+    }
+    const lx = d.pnl >= 0 ? zero + w + 6 : zero - w - 6;
+    el('text', { x: lx, y: cy + 4, 'text-anchor': d.pnl >= 0 ? 'start' : 'end', 'font-size': 11.5, fill: css('--text-2') }, svg).textContent = money(d.pnl);
+    const hit = el('rect', { x: 0, y: cy - rowH / 2, width: W, height: rowH, fill: 'transparent' }, svg);
+    hit.addEventListener('pointermove', (ev) => {
+      const r = box.getBoundingClientRect();
+      tip.innerHTML = `<b>${coin(d.s)}</b> · ${money(d.pnl)} USDT<br><span class="m">${d.n} trades · win ${d.n ? fmt(d.wins / d.n * 100, 0) : 0}%</span>`;
+      tip.style.display = 'block';
+      tip.style.left = Math.min(ev.clientX - r.left + 12, r.width - tip.offsetWidth) + 'px';
+      tip.style.top = (cy * (r.height / H) - tip.offsetHeight - 8) + 'px';
+    });
+    hit.addEventListener('pointerleave', () => { tip.style.display = 'none'; });
+  });
+}
+
+// ---------- control panel ----------
+function toast(id, msg, kind) {
+  const t = $(id);
+  t.textContent = msg;
+  t.className = 'toast' + (kind ? ' ' + kind : '');
+}
+// ---------- signal chart ----------
+let sigSym = null, SIG = null;
+const triPath = (cx, cy, up, s = 6) => up
+  ? `M${cx},${cy - s}L${cx + s},${cy + s * 0.8}L${cx - s},${cy + s * 0.8}Z`
+  : `M${cx},${cy + s}L${cx + s},${cy - s * 0.8}L${cx - s},${cy - s * 0.8}Z`;
+const sigName = (e) => e.kind === 'signal' ? (e.side === 'long' ? '▲ LONG signal' : '▼ SHORT signal') : '○ Skipped';
+
+async function loadSignal(force) {
+  if (!S) return;
+  const syms = S.config.symbols;
+  if (!sigSym || !syms.includes(sigSym)) sigSym = syms[0];
+  const seg = $('sigCoins');
+  if (seg.dataset.syms !== syms.join(',')) {
+    seg.dataset.syms = syms.join(',');
+    seg.innerHTML = syms.map((s) => `<button data-sym="${s}">${coin(s)}</button>`).join('');
+    seg.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { sigSym = b.dataset.sym; loadSignal(true); }));
+  }
+  seg.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.sym === sigSym)));
+  if (!force && SIG && SIG.symbol === sigSym && SIG.interval === S.config.interval && Date.now() - SIG.loaded < 60000) return;
+  try {
+    const r = await fetch('/api/chart?symbol=' + sigSym);
+    if (r.status === 401) { location.href = '/login'; return; }
+    const d = await r.json();
+    if (d.ok === false) throw new Error(d.error);
+    SIG = { ...d, loaded: Date.now() };
+    drawSignal();
+  } catch (e) {
+    $('sigChart').innerHTML = `<div class="empty">Chart data မရပါ: ${esc(e.message)}</div>`;
+  }
+}
+
+function drawSignal() {
+  const d = SIG, box = $('sigChart');
+  if (!d) return;
+  box.innerHTML = '';
+  // Phones: fewer candles so moves stay readable.
+  const ks = d.candles.slice(box.clientWidth < 520 ? -90 : 0);
+  if (ks.length < 2) { box.innerHTML = '<div class="empty">Data မရှိသေးပါ</div>'; return; }
+  const ink = css('--text'), surf = css('--surface'), muted = css('--muted'), ink2 = css('--text-2');
+  const lines = [['e20', 'EMA20', css('--ema1')], ['e50', 'EMA50', css('--ema2')], ['e200', 'EMA200', css('--ema3')]];
+  const upC = css('--up'), dnC = css('--dn');
+  $('sigLegend').innerHTML =
+    `<span><i style="background:${upC};width:7px;height:11px;border-radius:1px"></i>တက် Candle</span><span><i style="background:${dnC};width:7px;height:11px;border-radius:1px"></i>ကျ Candle</span>` +
+    lines.map(([, n, c]) => `<span><i style="background:${c}"></i>${n}</span>`).join('') +
+    `<span><svg viewBox="-7 -7 14 14"><path d="${triPath(0, 0, true)}" fill="${ink}"/></svg>Long signal</span>` +
+    `<span><svg viewBox="-7 -7 14 14"><path d="${triPath(0, 0, false)}" fill="${ink}"/></svg>Short signal</span>` +
+    `<span><svg viewBox="-7 -7 14 14"><circle r="4.5" fill="none" stroke="${muted}" stroke-width="1.5"/></svg>Cross, skipped</span>` +
+    `<span><svg viewBox="-7 -7 14 14"><circle r="4" fill="${ink}"/></svg>Entry</span>` +
+    `<span><i style="background:repeating-linear-gradient(90deg,${css('--critical')} 0 4px,transparent 4px 7px)"></i>SL</span>` +
+    `<span><i style="background:repeating-linear-gradient(90deg,${css('--good')} 0 4px,transparent 4px 7px)"></i>TP</span>` +
+    `<span><svg viewBox="-7 -7 14 14"><path d="M-4,-4L4,4M-4,4L4,-4" stroke="${ink}" stroke-width="2" stroke-linecap="round"/></svg>Exit</span>` +
+    `<span><svg viewBox="-7 -7 14 14"><rect x="-4" y="-4" width="8" height="8" transform="rotate(45)" fill="${css('--series-1')}"/></svg>Bot entry</span>`;
+
+  const W = Math.max(box.clientWidth, 280), H = 300, m = { l: 8, r: 64, t: 16, b: 26 };
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': `${coin(d.symbol)} price with EMA lines and signals` }, box);
+  const vals = ks.flatMap((k) => [k.h, k.l, k.e20, k.e50, k.e200]).filter(Number.isFinite);
+  if (d.position) vals.push(d.position.entry, d.position.sl);
+  for (const tr of d.trades ?? []) if ((tr.exitT ?? Infinity) >= ks[0].t) vals.push(tr.entry, tr.sl, ...(tr.tp ? [tr.tp] : []));
+  let lo = Math.min(...vals), hi = Math.max(...vals);
+  const pad = (hi - lo) * 0.08; lo -= pad; hi += pad;
+  const t0 = ks[0].t, t1 = ks.at(-1).t;
+  const x = (t) => m.l + (t - t0) / (t1 - t0) * (W - m.l - m.r);
+  const y = (v) => m.t + (hi - v) / (hi - lo) * (H - m.t - m.b);
+  for (const v of niceTicks(lo, hi, 4)) {
+    el('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: css('--grid'), 'stroke-width': 1 }, svg);
+    el('text', { x: W - m.r + 6, y: y(v) + 4, 'font-size': 10.5, fill: muted }, svg).textContent = priceFmt(v);
+  }
+  const nx = Math.max(2, Math.min(5, Math.floor(W / 150)));
+  for (let i = 0; i <= nx; i++) {
+    const tt = t0 + (t1 - t0) * i / nx;
+    el('text', { x: x(tt), y: H - 7, 'text-anchor': i === 0 ? 'start' : i === nx ? 'end' : 'middle', 'font-size': 11, fill: muted }, svg).textContent = dt(tt);
+  }
+  const path = (key) => ks.filter((k) => Number.isFinite(k[key])).map((k, i) => `${i ? 'L' : 'M'}${x(k.t).toFixed(1)},${y(k[key]).toFixed(1)}`).join('');
+  // candles: wick = high/low, body = open/close, green up / red down
+  const step = (W - m.l - m.r) / (ks.length - 1), bw = Math.max(1.5, Math.min(9, step * 0.68));
+  for (const k of ks) {
+    const up = k.c >= k.o, col = up ? upC : dnC, cx = x(k.t);
+    el('line', { x1: cx, x2: cx, y1: y(k.h), y2: y(k.l), stroke: col, 'stroke-width': 1 }, svg);
+    const top = y(Math.max(k.o, k.c)), hgt = Math.max(1, Math.abs(y(k.o) - y(k.c)));
+    el('rect', { x: cx - bw / 2, y: top, width: bw, height: hgt, fill: col }, svg);
+  }
+  for (const [k, , c] of lines) el('path', { d: path(k), fill: 'none', stroke: c, 'stroke-width': 2, 'stroke-linejoin': 'round' }, svg);
+
+  // open position: entry + stop-loss lines
+  if (d.position) {
+    for (const [v, label, c] of [[d.position.entry, 'Entry', ink2], [d.position.sl, 'SL', css('--critical')]]) {
+      el('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: c, 'stroke-width': 1, 'stroke-dasharray': '5 4' }, svg);
+      el('text', { x: m.l + 4, y: y(v) - 5, 'font-size': 11, fill: ink2 }, svg).textContent = `${label} ${priceFmt(v)}`;
+    }
+  }
+
+  // markers
+  const byT = new Map(ks.map((k) => [k.t, k]));
+  for (const e of d.events) {
+    const k = byT.get(e.t); if (!k) continue;
+    const cx = x(e.t);
+    if (e.kind === 'signal') {
+      const up = e.side === 'long';
+      el('path', { d: triPath(cx, up ? y(k.l) + 13 : y(k.h) - 13, up, 6.5), fill: ink, stroke: surf, 'stroke-width': 2 }, svg);
+    } else {
+      el('circle', { cx, cy: y(k.c), r: 5, fill: surf, stroke: muted, 'stroke-width': 1.5 }, svg);
+    }
+  }
+  // simulated trades: entry line, stop-loss path (step), take-profit, exit with result
+  const crit = css('--critical'), good = css('--good');
+  const clipId = 'sigclip' + Math.random().toString(36).slice(2, 7);
+  el('rect', { x: m.l, y: 0, width: W - m.l - m.r, height: H }, el('clipPath', { id: clipId }, el('defs', {}, svg)));
+  const tg = el('g', { 'clip-path': `url(#${clipId})` }, svg);
+  // chart patterns: the two lines price broke out of, with the pattern's name
+  for (const e of d.events) {
+    if (!e.pattern) continue;
+    let top = Infinity, lx = null;
+    for (const pts of [e.pattern.upper, e.pattern.lower]) {
+      const q = pts.filter(([t]) => t >= t0);
+      if (q.length < 2) continue;
+      el('path', { d: q.map(([t, v], i) => `${i ? 'L' : 'M'}${x(t).toFixed(1)},${y(v).toFixed(1)}`).join(''), fill: 'none', stroke: muted, 'stroke-width': 1.5 }, tg);
+      for (const [t, v] of q) if (y(v) < top) { top = y(v); lx = x(t); }
+    }
+    if (lx !== null) el('text', { x: Math.min(lx, W - m.r - 110), y: top - 6, 'font-size': 10.5, fill: ink2 }, tg).textContent = e.pattern.name;
+  }
+  const bar = ks.length > 1 ? ks[1].t - ks[0].t : 0;
+  for (const tr of d.trades ?? []) {
+    const endT = tr.exitT ?? t1;
+    if (endT < t0) continue;
+    const xa = x(tr.entryT), xb = x(endT);
+    // stop-loss as a step line: the level in force on each candle
+    let sd = '';
+    tr.path.forEach(([t, v], i) => { sd += `${i ? 'L' : 'M'}${x(t).toFixed(1)},${y(v).toFixed(1)}L${x(Math.min(t + bar, endT)).toFixed(1)},${y(v).toFixed(1)}`; });
+    el('path', { d: sd, fill: 'none', stroke: crit, 'stroke-width': 1.5, 'stroke-dasharray': '4 3' }, tg);
+    el('line', { x1: xa, x2: xb, y1: y(tr.entry), y2: y(tr.entry), stroke: ink2, 'stroke-width': 1, 'stroke-dasharray': '2 3' }, tg);
+    if (tr.tp) el('line', { x1: xa, x2: xb, y1: y(tr.tp), y2: y(tr.tp), stroke: good, 'stroke-width': 1.5, 'stroke-dasharray': '4 3' }, tg);
+    el('text', { x: xa + 3, y: y(tr.sl) + (tr.side === 'long' ? 13 : -5), 'font-size': 10.5, fill: ink2 }, tg).textContent = 'SL';
+    if (tr.tp) el('text', { x: xa + 3, y: y(tr.tp) + (tr.side === 'long' ? -5 : 13), 'font-size': 10.5, fill: ink2 }, tg).textContent = 'TP';
+    el('circle', { cx: xa, cy: y(tr.entry), r: 4.5, fill: ink, stroke: surf, 'stroke-width': 2 }, tg);
+    const res = `${tr.R >= 0 ? '+' : ''}${fmt(tr.R, 1)}R${tr.exitT ? '' : ' (open)'}`;
+    if (tr.exitT) {
+      const ex = x(tr.exitT), ey = y(tr.exit);
+      el('path', { d: `M${ex - 4},${ey - 4}L${ex + 4},${ey + 4}M${ex - 4},${ey + 4}L${ex + 4},${ey - 4}`, stroke: ink, 'stroke-width': 2, 'stroke-linecap': 'round' }, tg);
+    }
+    el('text', { x: Math.min(xb, W - m.r - 56) - 4, y: y(tr.exit) + (tr.side === 'long' ? -9 : 17), 'text-anchor': 'end', 'font-size': 11, 'font-weight': 650, fill: ink }, tg).textContent = res;
+  }
+
+  for (const e of d.entries) {
+    if (!(e.t >= t0)) continue;
+    el('rect', { x: x(e.t) - 5, y: y(e.entry) - 5, width: 10, height: 10, transform: `rotate(45 ${x(e.t)} ${y(e.entry)})`, fill: css('--series-1'), stroke: surf, 'stroke-width': 2 }, svg);
+  }
+
+  // direct labels at the line ends, nudged apart, text in text ink
+  const last = ks.at(-1);
+  const labs = lines.map(([k, n, c]) => ({ n, c, yy: y(last[k]) })).sort((a, b) => a.yy - b.yy);
+  for (let i = 1; i < labs.length; i++) labs[i].yy = Math.max(labs[i].yy, labs[i - 1].yy + 14);
+  for (const l of labs) {
+    el('rect', { x: W - m.r - 52, y: l.yy - 8, width: 50, height: 15, rx: 3, fill: surf, opacity: 0.9 }, svg);
+    el('line', { x1: W - m.r - 49, x2: W - m.r - 43, y1: l.yy, y2: l.yy, stroke: l.c, 'stroke-width': 2 }, svg);
+    el('text', { x: W - m.r - 40, y: l.yy + 3.5, 'font-size': 10.5, fill: ink2 }, svg).textContent = l.n;
+  }
+
+  // hover: crosshair + tooltip
+  const cross = el('line', { y1: m.t, y2: H - m.b, stroke: css('--axis'), 'stroke-width': 1, visibility: 'hidden' }, svg);
+  const tip = document.createElement('div'); tip.className = 'tip'; box.appendChild(tip);
+  const hit = el('rect', { x: m.l, y: 0, width: W - m.l - m.r, height: H, fill: 'transparent' }, svg);
+  const evAt = new Map(d.events.map((e) => [e.t, e]));
+  hit.addEventListener('pointermove', (ev) => {
+    const r = svg.getBoundingClientRect();
+    const px = (ev.clientX - r.left) * (W / r.width);
+    const i = Math.max(0, Math.min(ks.length - 1, Math.round((px - m.l) / (W - m.l - m.r) * (ks.length - 1))));
+    const k = ks[i], e = evAt.get(k.t);
+    cross.setAttribute('x1', x(k.t)); cross.setAttribute('x2', x(k.t)); cross.setAttribute('visibility', 'visible');
+    tip.innerHTML = `<b>${priceFmt(k.c)}</b> <span class="m">${dt(k.t)}</span><br>` +
+      `<span class="m">EMA20 ${priceFmt(k.e20)} · EMA50 ${priceFmt(k.e50)} · EMA200 ${priceFmt(k.e200)}</span>` +
+      (e ? `<br><b>${sigName(e)}</b><br><span class="m">${esc(e.reason)}</span>` : '') +
+      ((d.trades ?? []).filter((tr) => k.t >= tr.entryT && k.t <= (tr.exitT ?? t1)).map((tr) => {
+        const slHere = (tr.path.find(([t]) => t === k.t) ?? tr.path.at(-1))[1];
+        return `<br><b>${tr.side === 'long' ? '▲ LONG' : '▼ SHORT'} trade</b> <span class="m">Entry ${priceFmt(tr.entry)} · SL ${priceFmt(slHere)} · TP ${tr.tp ? priceFmt(tr.tp) : 'trailing'}</span>`;
+      }).join(''));
+    tip.style.display = 'block';
+    const sx = x(k.t) * (r.width / W);
+    tip.style.left = Math.min(Math.max(sx - tip.offsetWidth / 2, 0), r.width - tip.offsetWidth) + 'px';
+    tip.style.top = '0px';
+  });
+  hit.addEventListener('pointerleave', () => { tip.style.display = 'none'; cross.setAttribute('visibility', 'hidden'); });
+
+  // plain-language status + the crosses as a list (table view)
+  const n = d.now;
+  const next = new Date(n.nextBarAt).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  const usesPat = d.strategy === 'combo' || d.strategy === 'pattern';
+  const patTxt = usesPat ? ` ဒါမှမဟုတ် Chart pattern (Triangle, Flag, Wedge…) ကို <b>${n.trend === 'down' ? 'အောက်' : 'အပေါ်'}ဘက် ဖောက်ထွက်မှ</b> ဝင်မယ်` : '';
+  const want = (n.trend === 'down'
+    ? 'Trend ကျနေလို့ <b>SHORT</b> ပဲ ဝင်မယ်: EMA20 (အဝါ) က EMA50 (ပန်းရောင်) ကို <b>အောက်ကို ဖြတ်ဆင်းမှ</b> ဝင်မယ်'
+    : 'Trend တက်နေလို့ <b>LONG</b> ပဲ ဝင်မယ်: EMA20 (အဝါ) က EMA50 (ပန်းရောင်) ကို <b>အပေါ်ကို ဖြတ်တက်မှ</b> ဝင်မယ်') + patTxt;
+  const where = n.gapPct < 0 ? `EMA20 က EMA50 ရဲ့ ${fmt(Math.abs(n.gapPct))}% အောက်မှာ ရှိတယ်` : `EMA20 က EMA50 ရဲ့ ${fmt(n.gapPct)}% အပေါ်မှာ ရှိတယ်`;
+  $('sigNow').innerHTML = `${coin(d.symbol)} ${d.interval}: Price က EMA200 (အပြာ) ရဲ့ <b>${n.trend === 'down' ? 'အောက်' : 'အပေါ်'}</b>မှာ။ ${want}။ အခု ${where}။ နောက် Candle စစ်ချိန်: <b>${next}</b>`;
+  const evs = [...d.events].reverse().slice(0, 8);
+  $('sigEvents').innerHTML = evs.length
+    ? evs.map((e) => `<li><b>${dt(e.t)}</b> · ${sigName(e)} · ${esc(e.reason)}</li>`).join('')
+    : '<li>ဒီ Chart ထဲမှာ Signal မရှိသေးပါ။</li>';
+  $('sigHint').textContent = `${coin(d.symbol)} · ${d.interval} · ${d.strategy} · နောက်ဆုံး Candle ${ks.length} ခု`;
+
+  // the strategy's rules with today's numbers
+  const R = d.rules;
+  if (['trend', 'combo', 'pattern'].includes(d.strategy) && R) {
+    const slNow = R.atr * R.slAtr;
+    $('sigRules').innerHTML =
+      `<div><b>① Entry (ဝင်ချိန်)</b>EMA20 က EMA50 ကို ဖြတ်တဲ့ Candle <b style="display:inline">ပိတ်ချိန်</b>မှာ စစ်ပြီး နောက် Candle ဖွင့်ဈေးနဲ့ ဝင်။ Long = အပေါ်ဖြတ် + Price > EMA200။ Short = အောက်ဖြတ် + Price < EMA200${R.allowShort ? '' : ' (Spot မှာ Short မရ)'}။${usesPat ? ' <b style="display:inline">Chart pattern</b>: Triangle / Flag / Pennant / Wedge / Head & Shoulders / Double top-bottom ရဲ့ မျဉ်းကို Candle ပိတ်ဈေးနဲ့ ဖောက်ထွက်ရင်လည်း ဝင် (EMA200 ဘက်တူမှ)။' : ''}</div>` +
+      `<div><b>② SL (Stop-loss)</b>Entry ကနေ ${R.slAtr} × ATR အကွာ။ အခု ATR = ${priceFmt(R.atr)} (${fmt(R.atrPct)}%) ဆိုတော့ SL ≈ ${priceFmt(slNow)} (${fmt(R.atrPct * R.slAtr)}%) အကွာ။ ရှုံးရင် = 1R = Account ရဲ့ ${R.riskPct}%။</div>` +
+      (R.exit === 'trail'
+        ? `<div><b>③ TP (Take-profit)</b>TP ပုံသေ မရှိ။ <b style="display:inline">Trailing stop</b>: ဈေးက ကိုယ့်ဘက် သွားလေလေ SL ကို အကောင်းဆုံးဈေးရဲ့ ${R.trailAtr} × ATR နောက်ကနေ လိုက်ရွှေ့၊ ဈေးပြန်လှည့်ပြီး ထိမှ ထွက် (အမြတ်ကို ချိတ်)။</div>`
+        : `<div><b>③ TP (Take-profit)</b>Entry ကနေ ${R.tpAtr} × ATR အကွာ (≈ ${priceFmt(R.atr * R.tpAtr)})။ TP ထိရင် ${fmt(R.tpAtr / R.slAtr, 1)}R အမြတ်နဲ့ ထွက်။</div>`) +
+      (R.faFilter ? `<div><b>④ Fear & Greed စစ်ထုတ်မှု</b>စျေးကွက် စိတ်ခံစားမှု Index (0–100)။ 75 နဲ့အထက် (အရမ်းလောဘ) ဆို Long အသစ် မဝင်၊ 24 နဲ့အောက် (အရမ်းကြောက်) ဆို Short အသစ် မဝင်။ အခု = <b style="display:inline">${R.fng ?? '?'}</b>${R.fng == null ? '' : R.fng >= 75 ? ' → Long မဝင်' : R.fng <= 24 ? ' → Short မဝင်' : ' → နှစ်ဖက်လုံး ဝင်လို့ရ'}။ (အပေါ်က Chart Trade တွေမှာ ဒီစစ်ထုတ်မှု မပါပါ။)</div>` : '') +
+      `<div><b>${R.faFilter ? '⑤' : '④'} Chart ဖတ်နည်း</b>● Entry · <span style="color:${crit}">- - -</span> SL (လှေကားထစ် = Trailing ရွှေ့တာ) · ${R.exit === 'trail' ? '' : `<span style="color:${good}">- - -</span> TP · `}✕ Exit · +2.0R = ရှုံးနိုင်တဲ့ငွေရဲ့ ၂ ဆ အမြတ်။</div>`;
+  } else $('sigRules').innerHTML = '';
+
+  const trs = [...(d.trades ?? [])].reverse();
+  $('sigTrades').innerHTML = trs.length
+    ? `<table><thead><tr><th>Entry time</th><th>Side</th><th class="num">Entry</th><th class="num">SL</th><th class="num">TP</th><th>Exit</th><th class="num">Exit price</th><th class="num">Result</th></tr></thead><tbody>${
+      trs.map((tr) => `<tr><td>${dt(tr.entryT)}</td><td><span class="side ${tr.side}">${tr.side === 'long' ? '▲ LONG' : '▼ SHORT'}</span></td>
+        <td class="num">${priceFmt(tr.entry)}</td><td class="num">${priceFmt(tr.sl)}${tr.slNow && tr.slNow !== tr.sl ? `<br><span style="color:var(--muted)">now ${priceFmt(tr.slNow)}</span>` : ''}</td>
+        <td class="num">${tr.tp ? priceFmt(tr.tp) : 'trailing'}</td><td>${tr.exitT ? dt(tr.exitT) + ' · ' + esc(tr.why) : '<b>ဖွင့်ထားဆဲ</b>'}</td>
+        <td class="num">${priceFmt(tr.exit)}</td><td class="num ${tr.R >= 0 ? 'up' : 'down'}"><b>${tr.R >= 0 ? '+' : ''}${fmt(tr.R, 2)}R</b></td></tr>`).join('')
+    }</tbody></table><p class="hint" style="margin-top:6px">Bot က ဒီ Chart အချိန်တစ်လျှောက် Run နေခဲ့ရင် ဒီလို ဝင်/ထွက်ခဲ့မှာပါ (Fee မပါ၊ Backtest နည်းအတိုင်း)။ Bot ရဲ့ တကယ့် Trade တွေက ◆ နဲ့ ပြပါတယ်။</p>`
+    : `<div class="empty">ဒီ Chart အချိန်အတွင်း Strategy က Trade မဝင်ခဲ့ပါ။${d.interval !== '4h' ? ' (Interval သေးရင် Fee filter က Signal တွေကို ကျော်တတ်ပါတယ်။ 4h ကို စမ်းကြည့်ပါ။)' : ''}</div>`;
+}
+
+async function post(url, body = {}, toastId = 'toast') {
+  try {
+    const r = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json', 'x-zbot': '1' }, body: JSON.stringify(body) });
+    const j = await r.json();
+    toast(toastId, j.ok ? '✓ ' + j.message : '✕ ' + j.error, j.ok ? 'good' : 'bad');
+    await load(); setTimeout(load, 1500); setTimeout(load, 4000);
+    return j;
+  } catch (e) { toast(toastId, '✕ ' + e.message, 'bad'); return { ok: false }; }
+}
+
+function renderControls() {
+  const B = S.bot, paused = S.control.paused, c = S.config;
+  const open = Object.keys(S.state?.positions ?? {}).length;
+  const stopping = S.pending.some((p) => p.type === 'stop');
+  $('btnStart').disabled = B.running;
+  $('btnStop').disabled = !B.running || stopping;
+  $('btnStop').textContent = stopping ? '⏹ Stopping…' : '⏹ Stop bot';
+  $('btnPause').textContent = paused ? '▶ Resume new trades' : '⏸ Pause new trades';
+  $('btnCloseAll').disabled = !B.running || open === 0;
+  let hint = B.running
+    ? `Running since ${new Date(B.started).toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })} (pid ${B.pid})`
+    : 'Bot ရပ်နေပါတယ်။ ▶ Start bot ကို နှိပ်ပြီး စပါ။';
+  if (paused) hint += ' · ⏸ Paused: ရှိပြီးသား Position တွေကိုပဲ ထိန်းပြီး Trade အသစ် မဝင်ပါ';
+  if (B.otherAccount) hint += ` · ⚠️ Bot က ${B.otherAccount} နဲ့ Run နေပါတယ် (Dashboard က ${c.mode} ${c.market} ကို ပြနေတယ်)`;
+  if (!B.running && B.lastStartError) hint += ` · ✕ Last start failed: ${B.lastStartError.message}`;
+  $('ctlHint').textContent = hint;
+  // settings are locked while the bot runs
+  $('setForm').querySelectorAll('input,select').forEach((i) => { i.disabled = B.running; });
+  $('btnSave').disabled = B.running;
+  $('setHint').textContent = B.running
+    ? '🔒 Bot Run နေချိန်မှာ ပြင်လို့မရပါ။ ⏹ Stop bot လုပ်ပြီးမှ ပြင်ပါ။ MODE နဲ့ API key ကို .env ထဲမှာပဲ ပြင်ပါ။'
+    : `ပြင်ပြီး Save လုပ်ကာ ▶ Start bot ကို နှိပ်ပါ။ MODE (${c.mode}) နဲ့ API key ကို လုံခြုံရေးအတွက် .env ထဲမှာပဲ ပြင်ပါ။`;
+}
+
+const LABELS = {
+  MARKET: ['Market', 'futures = Long+Short · spot = Long only'],
+  SYMBOLS: ['Coins', 'ကော်မာခံပြီး ရေးပါ: BTCUSDT,ETHUSDT'],
+  INTERVAL: ['Timeframe', 'Backtest အရ 4h က အကောင်းဆုံး'],
+  STRATEGY: ['Strategy', 'combo (trend + chart pattern) ကို 4h နဲ့ အကြံပြုပါတယ်'],
+  RISK_PCT: ['Risk per trade (%)', 'Coin ၄ ခုဆိုရင် 0.5'],
+  MAX_OPEN_POSITIONS: ['Max open positions', 'Risk × ဒီဂဏန်း ≤ 4%'],
+  MAX_TRADES_PER_DAY: ['Max trades per day', ''],
+  DAILY_LOSS_PCT: ['Daily loss stop (%)', 'ဒီလောက်ရှုံးရင် ယနေ့ ရပ်မယ်'],
+  LEVERAGE: ['Leverage (futures)', '1–10x'],
+  TREND_EXIT: ['Trend exit', 'trail = Trailing stop'],
+  TREND_TRAIL_ATR: ['Trailing distance (ATR)', 'Default 3'],
+  PAPER_BALANCE: ['Paper balance (USDT)', 'Paper အသစ်စမှသာ သက်ရောက်'],
+};
+async function loadSettings() {
+  const r = await fetch('/api/settings');
+  if (r.status === 401) { location.href = '/login'; return; }
+  const s = await r.json();
+  $('setForm').innerHTML = Object.entries(s.fields).map(([k, f]) => {
+    const [label, help] = LABELS[k] ?? [k, ''];
+    const v = esc(s.values[k] ?? '');
+    const input = f.type === 'select'
+      ? `<select name="${k}">${f.options.map((o) => `<option ${o === s.values[k] ? 'selected' : ''}>${esc(o)}</option>`).join('')}</select>`
+      : `<input name="${k}" value="${v}" ${f.type === 'number' ? `type="number" min="${f.min}" max="${f.max}" step="${f.step}"` : 'type="text" spellcheck="false"'}>`;
+    return `<label${k === 'SYMBOLS' ? ' class="wide"' : ''}>${label}${input}${help ? `<small>${help}</small>` : ''}</label>`;
+  }).join('');
+  if (S) renderControls();
+}
+
+$('btnLogout').addEventListener('click', async () => {
+  await fetch('/api/logout', { method: 'POST', headers: { 'content-type': 'application/json', 'x-zbot': '1' }, body: '{}' });
+  location.href = '/login';
+});
+$('btnStart').addEventListener('click', () => post('/api/start'));
+$('btnStop').addEventListener('click', () => {
+  if (confirm('Bot ကို ရပ်မှာ သေချာလား?\n\nဖွင့်ထားတဲ့ Position တွေရဲ့ Stop-loss က Exchange ပေါ်မှာ ကျန်နေပါမယ်။ Trailing stop ကိုတော့ မရွှေ့ပေးတော့ပါ။')) post('/api/stop');
+});
+$('btnPause').addEventListener('click', () => post('/api/pause', { paused: !S.control.paused }));
+$('btnCloseAll').addEventListener('click', () => {
+  if (confirm('Position အားလုံးကို Market ဈေးနဲ့ အခု ပိတ်မှာ သေချာလား?' + (S.config.mode === 'live' ? '\n\n⚠️ LIVE: ငွေအစစ်ပါ။' : ''))) post('/api/close-all');
+});
+async function loadKeys() {
+  const r = await fetch('/api/keys');
+  if (!r.ok) return;
+  const k = await r.json();
+  $('keyForm').innerHTML = Object.entries(k).map(([name, f]) =>
+    `<label>${esc(f.label)}<input name="${name}" type="password" autocomplete="off" spellcheck="false" placeholder="${f.set ? 'set ✓ ' + esc(f.hint) : 'not set'}"><small>${f.set ? '✓ ထည့်ပြီး' : '— မထည့်ရသေး'}</small></label>`).join('');
+}
+$('btnKeys').addEventListener('click', async () => {
+  const values = Object.fromEntries([...new FormData($('keyForm')).entries()].filter(([, v]) => v.trim()));
+  if (!Object.keys(values).length) return toast('keyToast', '✕ Key တစ်ခုခု Paste လုပ်ပါ', 'bad');
+  toast('keyToast', 'Saving…');
+  const j = await post('/api/keys', { values, password: $('keyPw').value }, 'keyToast');
+  if (j.ok) { $('keyForm').reset(); $('keyPw').value = ''; await loadKeys(); }
+});
+$('btnSave').addEventListener('click', async () => {
+  const values = Object.fromEntries(new FormData($('setForm')).entries());
+  toast('setToast', 'Checking…');
+  const j = await post('/api/settings', { values }, 'setToast');
+  if (j.ok) { BT = null; await loadSettings(); }
+});
+
+document.querySelectorAll('.seg button[data-src]').forEach((b) => b.addEventListener('click', () => {
+  src = b.dataset.src;
+  try { localStorage.setItem('zbot-src', src); } catch {}
+  render();
+}));
+$('btnTheme').addEventListener('click', () => {
+  const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+  document.documentElement.dataset.theme = next;
+  try { localStorage.setItem('zbot-theme', next); } catch {}
+  document.querySelector('meta[name="theme-color"]').content = next === 'light' ? '#ffffff' : '#181a20';
+  if (S) render(); drawSignal();
+});
+{
+  const links = [...document.querySelectorAll('.nav a, .tabbar a')];
+  const io = new IntersectionObserver((es) => {
+    for (const e of es) if (e.isIntersecting) links.forEach((a) => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('section[id], div.row2[id]').forEach((n) => io.observe(n));
+}
+let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => S && render(), 150); });
+matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', () => S && render());
+loadSettings().then(load).then(() => loadSignal(true));
+loadKeys();
+async function loadTeam() {
+  try {
+    const r = await fetch('/api/team');
+    if (!r.ok) return;
+    const T = await r.json();
+    const pnl = (v) => v === null ? '' : ` <span class="${v > 0 ? 'up' : v < 0 ? 'down' : ''}">${v >= 0 ? '+' : '-'}$${Math.abs(v).toFixed(2)}</span>`;
+    $('team').innerHTML = T.roles.map((x) => `<div class="role ${esc(x.state)}">
+      <div class="rh"><span class="rs"></span><span class="ri">${x.icon}</span><span class="rn">${esc(x.name)}</span><span class="rm">${esc(x.mm)}</span></div>
+      <div class="rnow">${esc(x.now)}</div>
+      ${x.items?.length ? '<ul>' + x.items.map((i) => `<li><b>${esc(i.symbol)}</b> ${i.side === 'long' ? 'Long' : 'Short'} · Stop ${esc(i.sl)}${i.trailing ? ' ↻' : ''}${pnl(i.pnl)}</li>`).join('') + '</ul>' : ''}
+      ${x.next ? `<div class="rnext">${esc(x.next)}</div>` : ''}
+      ${x.last ? `<div class="rlast">↳ ${esc(x.last.ago)}: ${esc(x.last.text)}</div>` : ''}
+    </div>`).join('');
+    $('teamAt').textContent = new Date(T.t).toLocaleTimeString('en-GB');
+  } catch { /* keep the last view */ }
+}
+loadTeam();
+setInterval(loadTeam, 20000);
+setInterval(load, 5000);
+setInterval(() => loadSignal(false), 15000);
+window.addEventListener('resize', () => { clearTimeout(window.sigRt); window.sigRt = setTimeout(drawSignal, 150); });
+matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', () => drawSignal());
+</script>
+</body>
+</html>

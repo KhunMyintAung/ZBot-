@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "zbot-dashboard",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["trading/src/index.js", "dashboard"],
+      "port": 8787
+    }
+  ]
+}

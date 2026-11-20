@@ -1,0 +1,20 @@
+{
+  "name": "zbot-content-machine",
+  "version": "1.0.0",
+  "description": "Drop one video in, get a week of posts out: transcribe, find best moments, write threads/posts/quotes/newsletter/blogs, cut vertical clips, auto-schedule.",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "run": "node src/index.js run",
+    "watch": "node src/index.js watch",
+    "demo": "node src/index.js demo"
+  },
+  "engines": {
+    "node": ">=21.7"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.7.0",
+    "ffmpeg-static": "^5.3.0",
+    "openai": "^7.54.0"
+  }
+}

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="my">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MMK Rates API</title>
+<meta name="description" content="Myanmar Kyat exchange rates, gold and fuel prices as JSON: free read-only API with conversion.">
+<style>
+  :root {
+    --bg: #f7f7f5; --card: #ffffff; --text: #1d1d1b; --muted: #66665f; --line: #e3e2dc;
+    --accent: #0f7b5f; --accent-soft: #e3f2ec; --code-bg: #f0efe9; --warn: #8a5a00; --warn-soft: #fbf1dc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #151614; --card: #1d1f1c; --text: #ecebe6; --muted: #a3a29b; --line: #2f322d;
+      --accent: #4fc39b; --accent-soft: #1d3029; --code-bg: #252823; --warn: #e3b252; --warn-soft: #33291a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.65 system-ui, -apple-system, "Segoe UI", "Noto Sans Myanmar", "Myanmar Text", sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 28px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  h2 { font-size: 19px; margin: 36px 0 10px; padding-top: 8px; border-top: 1px solid var(--line); }
+  h3 { font-size: 15px; margin: 22px 0 6px; }
+  p { margin: 8px 0; }
+  .lead { color: var(--muted); margin: 0 0 18px; }
+  a { color: var(--accent); }
+  code, pre { font: 13px/1.55 ui-monospace, "SFMono-Regular", Consolas, monospace; }
+  code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+  pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; margin: 8px 0 14px; position: relative; }
+  pre code { background: none; padding: 0; overflow-wrap: normal; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin: 10px 0; }
+  .ep { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .method { background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 5px; letter-spacing: .04em; }
+  .base { font-weight: 600; overflow-wrap: anywhere; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 14px; font-size: 14px; }
+  th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  .tbl { overflow-x: auto; }
+  .note { background: var(--warn-soft); color: var(--text); border-left: 3px solid var(--warn); border-radius: 6px; padding: 10px 12px; margin: 12px 0; font-size: 14px; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 0; }
+  .tabs button { font: inherit; font-size: 13px; background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+  .tabs button[aria-selected="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .panel[hidden] { display: none; }
+  .try { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .try input, .try select { font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); color: var(--text); }
+  .try input { width: 130px; }
+  .try button { font: inherit; padding: 6px 14px; border: 0; border-radius: 6px; background: var(--accent); color: #fff; cursor: pointer; }
+  #out { min-height: 60px; max-height: 340px; overflow: auto; }
+  .big { font-size: 22px; font-weight: 700; margin: 6px 0; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .copy { position: absolute; top: 6px; right: 6px; font: 12px system-ui, sans-serif; background: var(--card); color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 2px 8px; cursor: pointer; }
+</style>
+</head>
+<body>
+<main>
+  <h1>MMK Rates API</h1>
+  <p class="lead">မြန်မာ ငွေကြေးလဲလှယ်နှုန်း၊ ရွှေဈေး၊ ဆီဈေး – JSON API (အခမဲ့၊ Read-only၊ Key မလို)<br>
+  Myanmar Kyat exchange rates, gold and fuel prices as JSON. Free, read-only, no API key.</p>
+
+  <div class="card">
+    <div class="ep"><span class="method">GET</span><span class="base" id="baseUrl">https://68-183-234-118.sslip.io/api/mmk</span></div>
+    <p class="muted">Endpoint တစ်ခုတည်း။ Website / App / Server ဘယ်ကမဆို ခေါ်လို့ရ (CORS ဖွင့်ထား)။ Data ကို ၁၀ မိနစ်တစ်ခါ Update လုပ်ပါတယ်။</p>
+  </div>
+
+  <h2>စမ်းကြည့်ရန် · Try it</h2>
+  <div class="card">
+    <div class="try">
+      <input id="amt" type="number" value="100" min="0" step="any" aria-label="Amount">
+      <select id="from" aria-label="From"></select>
+      <span>→</span>
+      <select id="to" aria-label="To"></select>
+      <button id="go">Convert</button>
+    </div>
+    <div class="big" id="res"></div>
+    <pre id="out"><code>…</code></pre>
+  </div>
+
+  <h2>Parameters</h2>
+  <div class="tbl"><table>
+    <tr><th>Name</th><th>ဥပမာ</th><th>အဓိပ္ပာယ်</th></tr>
+    <tr><td><code>code</code></td><td><code>USD,THB,MM-16PAE</code></td><td>လိုချင်တဲ့ Rate တွေပဲ (comma ခြား)။ မထည့်ရင် အားလုံး။</td></tr>
+    <tr><td><code>amount</code></td><td><code>100</code></td><td>ပြောင်းချင်တဲ့ ပမာဏ။ ထည့်ရင် <code>convert</code> အဖြေ ပါလာမယ်။</td></tr>
+    <tr><td><code>from</code></td><td><code>USD</code></td><td>ပြောင်းမယ့် ငွေ (default <code>USD</code>)။ <code>MMK</code> လည်း ရ။</td></tr>
+    <tr><td><code>to</code></td><td><code>MMK</code></td><td>ရလဒ် ငွေ (default <code>MMK</code>)။</td></tr>
+  </table></div>
+
+  <h2>ဥပမာ Requests</h2>
+  <pre><code>GET /api/mmk                                   # all rates
+GET /api/mmk?code=USD,THB                      # only USD and THB
+GET /api/mmk?amount=100&amp;from=USD&amp;to=MMK       # 100 USD in MMK
+GET /api/mmk?amount=1000000&amp;from=MMK&amp;to=USD   # 1,000,000 MMK in USD
+GET /api/mmk?code=USD&amp;amount=50000&amp;from=THB    # one rate + conversion</code></pre>
+
+  <h2>Response</h2>
+  <pre><code>{
+  "source": "mmktoday.com (data from SetLive and bank websites; not verified by zBOT)",
+  "cached_at": "2026-11-14T10:06:10.949Z",
+  "published_at": "2026-11-14T09:23:29+00:00",
+  "rates": [
+    {
+      "code": "USD", "name": "United States Dollar", "category": "fx", "unit": "MMK",
+      "buy": 4820, "sell": 4920, "mid": 4870, "value": null,
+      "state": "fresh", "source_time": "2026-11-14T14:37:40+06:30", "source_name": "SetLive currency board ..."
+    }
+  ],
+  "convert": { "amount": 100, "from": "USD", "to": "MMK", "result": 487000, "rate": 4870 }
+}</code></pre>
+
+  <h3>Rate fields</h3>
+  <div class="tbl"><table>
+    <tr><th>Field</th><th>အဓိပ္ပာယ်</th></tr>
+    <tr><td><code>code</code></td><td>Rate ID (အောက်က ဇယား ကြည့်)</td></tr>
+    <tr><td><code>buy</code> / <code>sell</code></td><td>ဆိုင်က ဝယ်ဈေး / ရောင်းဈေး (MMK)။ ဆီ နဲ့ ကမ္ဘာ့ရွှေမှာ <code>null</code></td></tr>
+    <tr><td><code>mid</code></td><td>(buy + sell) ÷ 2 – Convert မှာ ဒါကို သုံး</td></tr>
+    <tr><td><code>value</code></td><td>ဈေးတစ်ခုတည်း ရှိတာတွေ (ဆီ၊ <code>XAU/USD</code>)။ ကျန်တာ <code>null</code></td></tr>
+    <tr><td><code>unit</code></td><td><code>MMK</code>, <code>MMK/kyattha</code> (ရွှေ ၁ ကျပ်သား), <code>MMK/litre</code>, <code>USD/oz</code></td></tr>
+    <tr><td><code>category</code></td><td><code>fx</code> ပြင်ပဈေး · <code>official</code> ဘဏ်ဈေး · <code>gold</code> · <code>essentials</code> ဆီ</td></tr>
+    <tr><td><code>state</code></td><td><code>fresh</code> = ဒီနေ့ data · <code>stale</code> = ဟောင်းနေ (သတိထား)</td></tr>
+    <tr><td><code>stale_reason</code></td><td>(top level) Source က Update မရရင်သာ ပါ။ နောက်ဆုံး ရထားတဲ့ data ကို ပြနေတာ။</td></tr>
+  </table></div>
+
+  <h3>Codes</h3>
+  <div class="tbl"><table>
+    <tr><th>Group</th><th>Codes</th></tr>
+    <tr><td>ပြင်ပဈေး (MMK)</td><td><code>USD</code> <code>EUR</code> <code>GBP</code> <code>SGD</code> <code>THB</code> <code>CNY</code> <code>MYR</code> <code>JPY</code> <code>KRW</code> <code>AED</code> <code>TWD</code> <code>AUD</code> <code>NZD</code> <code>CAD</code> <code>HKD</code> <code>INR</code> <code>MOP</code> <code>VND</code> <code>LAK</code> <code>KHR</code> <code>PHP</code></td></tr>
+    <tr><td>ဘဏ်ဈေး</td><td><code>BANK-UAB-USD</code> <code>BANK-UAB-EUR</code> <code>BANK-UAB-SGD</code> <code>BANK-UAB-CNY</code> <code>BANK-UAB-THB</code> <code>BANK-AYA-USD</code> <code>BANK-AYA-EUR</code> <code>BANK-AYA-SGD</code></td></tr>
+    <tr><td>ရွှေ (၁ ကျပ်သား)</td><td><code>MM-16PAE</code> ၁၆ ပဲရည် ဟောင်း · <code>MM-16PAE-NEW</code> ၁၆ ပဲရည် သစ် · <code>MM-15PAE</code> · <code>MM-15PAE-NEW</code> · <code>XAU/USD</code> ကမ္ဘာ့ရွှေ</td></tr>
+    <tr><td>ဆီ (ရန်ကုန်၊ ၁ လီတာ)</td><td><code>FUEL-92-YGN</code> <code>FUEL-95-YGN</code> <code>FUEL-DIESEL-YGN</code> <code>FUEL-PDIESEL-YGN</code></td></tr>
+  </table></div>
+  <p class="muted">Code စာရင်းက Source ပေါ်မူတည်ပြီး ပြောင်းနိုင်ပါတယ်။ အမြဲ <code>rates</code> ထဲမှာ ရှာပြီး မတွေ့ရင် ကိုင်တွယ်ပါ။</p>
+
+  <h2>Code ဥပမာ</h2>
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-p="js">JavaScript</button>
+    <button role="tab" aria-selected="false" data-p="php">PHP</button>
+    <button role="tab" aria-selected="false" data-p="py">Python</button>
+    <button role="tab" aria-selected="false" data-p="cs">C#</button>
+    <button role="tab" aria-selected="false" data-p="curl">cURL</button>
+  </div>
+  <div class="panel" id="p-js"><pre><code>const API = 'https://68-183-234-118.sslip.io/api/mmk';
+
+// one rate
+const { rates } = await (await fetch(`${API}?code=USD`)).json();
+console.log(rates[0].buy, rates[0].sell);       // 4820 4920
+
+// conversion
+const { convert } = await (await fetch(`${API}?amount=100&amp;from=USD&amp;to=MMK`)).json();
+console.log(convert.result);                    // 487000</code></pre></div>
+  <div class="panel" id="p-php" hidden><pre><code>&lt;?php
+$j = json_decode(file_get_contents('https://68-183-234-118.sslip.io/api/mmk?code=USD,MM-16PAE'), true);
+foreach ($j['rates'] as $r) {
+    echo $r['code'] . ': ' . $r['buy'] . ' / ' . $r['sell'] . PHP_EOL;
+}</code></pre></div>
+  <div class="panel" id="p-py" hidden><pre><code>import requests
+j = requests.get('https://68-183-234-118.sslip.io/api/mmk',
+                 params={'amount': 100, 'from': 'USD', 'to': 'MMK'}, timeout=15).json()
+print(j['convert']['result'])   # 487000.0</code></pre></div>
+  <div class="panel" id="p-cs" hidden><pre><code>using var http = new HttpClient();
+var json = await http.GetStringAsync("https://68-183-234-118.sslip.io/api/mmk?code=USD");
+using var doc = System.Text.Json.JsonDocument.Parse(json);
+var usd = doc.RootElement.GetProperty("rates")[0];
+Console.WriteLine($"{usd.GetProperty("buy")} / {usd.GetProperty("sell")}");</code></pre></div>
+  <div class="panel" id="p-curl" hidden><pre><code>curl "https://68-183-234-118.sslip.io/api/mmk?code=USD,THB"
+curl "https://68-183-234-118.sslip.io/api/mmk?amount=100&amp;from=USD&amp;to=MMK"</code></pre></div>
+
+  <h2>Errors &amp; Limits</h2>
+  <div class="tbl"><table>
+    <tr><th>Status</th><th>ဘာကြောင့်</th></tr>
+    <tr><td><code>200</code></td><td>OK</td></tr>
+    <tr><td><code>400</code></td><td><code>amount</code> ဂဏန်း မဟုတ် / <code>from</code>/<code>to</code> code မရှိ (ဥပမာ <code>{"error":"no buy/sell rate for XYZ"}</code>)</td></tr>
+    <tr><td><code>429</code></td><td>IP တစ်ခုက ၁ မိနစ်မှာ ၆၀ ကြိမ် ကျော်ခေါ်</td></tr>
+    <tr><td><code>503</code></td><td>Source ကို ယူမရသေး (Server စတင်ချိန်)။ ခဏနေ ပြန်ခေါ်ပါ။</td></tr>
+  </table></div>
+  <p>Data က ၁၀ မိနစ်ထက် မြန်မြန် မပြောင်းလို့ ၅–၁၀ မိနစ်တစ်ခါ ခေါ်ရင် လုံလောက်ပါတယ်။ Response ကို ၅ မိနစ် Cache လုပ်လို့ရ (<code>Cache-Control: max-age=300</code>)။</p>
+
+  <div class="note">⚠️ <b>Data အကြောင်း:</b> ဈေးနှုန်းတွေကို <a href="https://mmktoday.com/" rel="noopener">mmktoday.com</a> (SetLive နဲ့ ဘဏ် website များ) ကနေ ယူထားတာပါ။ ကိုးကားချက် (reference) သာဖြစ်ပြီး ဆိုင်/ဘဏ် အစစ်အမှန်ဈေးနဲ့ ကွာနိုင်ပါတယ်။ ငွေအများကြီး လဲလှယ်ရင် ဆိုင်/ဘဏ်မှာ ပြန်စစ်ပါ။ Website မှာ ပြရင် Source ကို ဖော်ပြပေးပါ။ Prices are a reference only; source: mmktoday.com.</div>
+</main>
+<script>
+  // served by zBOT: same host; opened as a file: the public server
+  const API = location.protocol.startsWith('http') ? location.origin + '/api/mmk' : 'https://68-183-234-118.sslip.io/api/mmk';
+  document.getElementById('baseUrl').textContent = API;
+  for (const pre of document.querySelectorAll('pre:not(#out)')) {
+    const b = document.createElement('button'); b.className = 'copy'; b.textContent = 'Copy';
+    b.onclick = async () => { try { await navigator.clipboard.writeText(pre.innerText.replace(/\nCopy$/, '')); b.textContent = 'Copied'; setTimeout(() => (b.textContent = 'Copy'), 1200); } catch { b.textContent = '—'; } };
+    pre.appendChild(b);
+  }
+  for (const t of document.querySelectorAll('[role=tab]')) t.onclick = () => {
+    for (const x of document.querySelectorAll('[role=tab]')) { x.setAttribute('aria-selected', x === t); document.getElementById('p-' + x.dataset.p).hidden = x !== t; }
+  };
+  const fmt = (v) => v.toLocaleString('en-US', { maximumFractionDigits: v >= 100 ? 0 : 4 });
+  const out = document.querySelector('#out code'), res = document.getElementById('res');
+  async function run() {
+    const q = new URLSearchParams({ amount: document.getElementById('amt').value || 0, from: document.getElementById('from').value, to: document.getElementById('to').value });
+    out.textContent = 'Loading…';
+    try {
+      const j = await (await fetch(`${API}?${q}`)).json();
+      if (j.error) { res.textContent = ''; out.textContent = JSON.stringify(j, null, 2); return; }
+      res.textContent = `${fmt(j.convert.amount)} ${j.convert.from} = ${fmt(j.convert.result)} ${j.convert.to}`;
+      out.textContent = `GET ${API}?${q}\n\n` + JSON.stringify({ ...j, rates: `[${j.rates.length} rates]` }, null, 2);
+    } catch (e) { res.textContent = ''; out.textContent = 'Error: ' + e.message; }
+  }
+  (async () => {
+    const codes = ['MMK', 'USD', 'THB', 'CNY', 'SGD', 'MYR', 'EUR', 'JPY', 'KRW', 'GBP'];
+    for (const id of ['from', 'to']) document.getElementById(id).innerHTML = codes.map((c) => `<option>${c}</option>`).join('');
+    document.getElementById('from').value = 'USD'; document.getElementById('to').value = 'MMK';
+    document.getElementById('go').onclick = run;
+    run();
+  })();
+</script>
+</body>
+</html>

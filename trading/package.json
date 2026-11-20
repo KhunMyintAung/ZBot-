@@ -1,0 +1,23 @@
+{
+  "name": "zbot-trader",
+  "version": "1.0.0",
+  "description": "Rule-based Binance Spot + USDT-M Futures bot with backtester, risk manager, daily kill switch, web dashboard and Telegram AI agent.",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "backtest": "node src/index.js backtest",
+    "compare": "node src/index.js compare",
+    "check": "node src/index.js check",
+    "bot": "node src/index.js bot",
+    "agent": "node src/index.js agent"
+  },
+  "engines": {
+    "node": ">=21.7"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "@tiny-fish/sdk": "^0.11.0",
+    "openai": "^6.49.0"
+  }
+}
